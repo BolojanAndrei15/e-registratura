@@ -4,9 +4,11 @@ import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
+  Settings,
+  UserRound,
+  Moon,
+  Sun
 } from "lucide-react"
 
 import {
@@ -29,11 +31,44 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { signOut } from "next-auth/react";
+import React from "react";
+
+function ThemeToggle() {
+  const [theme, setTheme] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("dark") ? "dark" : "light";
+    }
+    return "light";
+  });
+
+  React.useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
+  return (
+    <DropdownMenuItem onClick={toggleTheme}>
+      {theme === "dark" ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
+      <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+    </DropdownMenuItem>
+  );
+}
 
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
+  if (!user) return null;
 
   return (
     (<SidebarMenu>
@@ -71,32 +106,30 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
+            
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+             
+              <ThemeToggle />
+              <DropdownMenuSeparator />
+
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
+                <UserRound />
+                Contul Meu
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
                 Notifications
               </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Settings />
+              Settări
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
+            <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/login' })}>
+              <LogOut className="text-red-500 dark:text-red-800"/>
+              <span className="text-red-500 dark:text-red-800">Deconectare</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
