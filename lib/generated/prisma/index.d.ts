@@ -2151,15 +2151,15 @@ export namespace Prisma {
    */
 
   export type DepartmentCountOutputType = {
+    Register: number
     registrationRecords: number
     users: number
-    Register: number
   }
 
   export type DepartmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Register?: boolean | DepartmentCountOutputTypeCountRegisterArgs
     registrationRecords?: boolean | DepartmentCountOutputTypeCountRegistrationRecordsArgs
     users?: boolean | DepartmentCountOutputTypeCountUsersArgs
-    Register?: boolean | DepartmentCountOutputTypeCountRegisterArgs
   }
 
   // Custom InputTypes
@@ -2176,6 +2176,13 @@ export namespace Prisma {
   /**
    * DepartmentCountOutputType without action
    */
+  export type DepartmentCountOutputTypeCountRegisterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegisterWhereInput
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
   export type DepartmentCountOutputTypeCountRegistrationRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RegistrationWhereInput
   }
@@ -2185,13 +2192,6 @@ export namespace Prisma {
    */
   export type DepartmentCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
-  }
-
-  /**
-   * DepartmentCountOutputType without action
-   */
-  export type DepartmentCountOutputTypeCountRegisterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RegisterWhereInput
   }
 
 
@@ -2231,13 +2231,13 @@ export namespace Prisma {
    */
 
   export type RoleCountOutputType = {
-    users: number
     rolePermissions: number
+    users: number
   }
 
   export type RoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | RoleCountOutputTypeCountUsersArgs
     rolePermissions?: boolean | RoleCountOutputTypeCountRolePermissionsArgs
+    users?: boolean | RoleCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -2254,15 +2254,15 @@ export namespace Prisma {
   /**
    * RoleCountOutputType without action
    */
-  export type RoleCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
+  export type RoleCountOutputTypeCountRolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePermissionWhereInput
   }
 
   /**
    * RoleCountOutputType without action
    */
-  export type RoleCountOutputTypeCountRolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RolePermissionWhereInput
+  export type RoleCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -2374,18 +2374,18 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     auditLogs: number
-    RegisteredRecords: number
-    HandledRecords: number
-    notifications: number
     loginAttempts: number
+    notifications: number
+    HandledRecords: number
+    RegisteredRecords: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
-    RegisteredRecords?: boolean | UserCountOutputTypeCountRegisteredRecordsArgs
-    HandledRecords?: boolean | UserCountOutputTypeCountHandledRecordsArgs
-    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     loginAttempts?: boolean | UserCountOutputTypeCountLoginAttemptsArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    HandledRecords?: boolean | UserCountOutputTypeCountHandledRecordsArgs
+    RegisteredRecords?: boolean | UserCountOutputTypeCountRegisteredRecordsArgs
   }
 
   // Custom InputTypes
@@ -2409,15 +2409,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRegisteredRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RegistrationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountHandledRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RegistrationWhereInput
+  export type UserCountOutputTypeCountLoginAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoginAttemptWhereInput
   }
 
   /**
@@ -2430,8 +2423,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountLoginAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LoginAttemptWhereInput
+  export type UserCountOutputTypeCountHandledRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistrationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRegisteredRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RegistrationWhereInput
   }
 
 
@@ -4754,9 +4754,9 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Register?: boolean | Department$RegisterArgs<ExtArgs>
     registrationRecords?: boolean | Department$registrationRecordsArgs<ExtArgs>
     users?: boolean | Department$usersArgs<ExtArgs>
-    Register?: boolean | Department$RegisterArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
@@ -4786,9 +4786,9 @@ export namespace Prisma {
 
   export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Register?: boolean | Department$RegisterArgs<ExtArgs>
     registrationRecords?: boolean | Department$registrationRecordsArgs<ExtArgs>
     users?: boolean | Department$usersArgs<ExtArgs>
-    Register?: boolean | Department$RegisterArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4797,9 +4797,9 @@ export namespace Prisma {
   export type $DepartmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Department"
     objects: {
+      Register: Prisma.$RegisterPayload<ExtArgs>[]
       registrationRecords: Prisma.$RegistrationPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
-      Register: Prisma.$RegisterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5201,9 +5201,9 @@ export namespace Prisma {
    */
   export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Register<T extends Department$RegisterArgs<ExtArgs> = {}>(args?: Subset<T, Department$RegisterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegisterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     registrationRecords<T extends Department$registrationRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Department$registrationRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends Department$usersArgs<ExtArgs> = {}>(args?: Subset<T, Department$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Register<T extends Department$RegisterArgs<ExtArgs> = {}>(args?: Subset<T, Department$RegisterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegisterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5626,6 +5626,30 @@ export namespace Prisma {
   }
 
   /**
+   * Department.Register
+   */
+  export type Department$RegisterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Register
+     */
+    select?: RegisterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Register
+     */
+    omit?: RegisterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegisterInclude<ExtArgs> | null
+    where?: RegisterWhereInput
+    orderBy?: RegisterOrderByWithRelationInput | RegisterOrderByWithRelationInput[]
+    cursor?: RegisterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegisterScalarFieldEnum | RegisterScalarFieldEnum[]
+  }
+
+  /**
    * Department.registrationRecords
    */
   export type Department$registrationRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5671,30 +5695,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * Department.Register
-   */
-  export type Department$RegisterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Register
-     */
-    select?: RegisterSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Register
-     */
-    omit?: RegisterOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RegisterInclude<ExtArgs> | null
-    where?: RegisterWhereInput
-    orderBy?: RegisterOrderByWithRelationInput | RegisterOrderByWithRelationInput[]
-    cursor?: RegisterWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RegisterScalarFieldEnum | RegisterScalarFieldEnum[]
   }
 
   /**
@@ -6942,8 +6942,8 @@ export namespace Prisma {
     roleId?: boolean
     permissionId?: boolean
     createdAt?: boolean
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rolePermission"]>
 
   export type RolePermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6951,8 +6951,8 @@ export namespace Prisma {
     roleId?: boolean
     permissionId?: boolean
     createdAt?: boolean
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rolePermission"]>
 
   export type RolePermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6960,8 +6960,8 @@ export namespace Prisma {
     roleId?: boolean
     permissionId?: boolean
     createdAt?: boolean
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rolePermission"]>
 
   export type RolePermissionSelectScalar = {
@@ -6973,23 +6973,23 @@ export namespace Prisma {
 
   export type RolePermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roleId" | "permissionId" | "createdAt", ExtArgs["result"]["rolePermission"]>
   export type RolePermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }
   export type RolePermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }
   export type RolePermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Role?: boolean | RoleDefaultArgs<ExtArgs>
     Permission?: boolean | PermissionDefaultArgs<ExtArgs>
+    Role?: boolean | RoleDefaultArgs<ExtArgs>
   }
 
   export type $RolePermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RolePermission"
     objects: {
-      Role: Prisma.$RolePayload<ExtArgs>
       Permission: Prisma.$PermissionPayload<ExtArgs>
+      Role: Prisma.$RolePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7390,8 +7390,8 @@ export namespace Prisma {
    */
   export interface Prisma__RolePermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Permission<T extends PermissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PermissionDefaultArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7995,8 +7995,8 @@ export namespace Prisma {
     name?: boolean
     color?: boolean
     createdAt?: boolean
-    users?: boolean | Role$usersArgs<ExtArgs>
     rolePermissions?: boolean | Role$rolePermissionsArgs<ExtArgs>
+    users?: boolean | Role$usersArgs<ExtArgs>
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["role"]>
 
@@ -8023,8 +8023,8 @@ export namespace Prisma {
 
   export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "color" | "createdAt", ExtArgs["result"]["role"]>
   export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | Role$usersArgs<ExtArgs>
     rolePermissions?: boolean | Role$rolePermissionsArgs<ExtArgs>
+    users?: boolean | Role$usersArgs<ExtArgs>
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8033,8 +8033,8 @@ export namespace Prisma {
   export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Role"
     objects: {
-      users: Prisma.$UserPayload<ExtArgs>[]
       rolePermissions: Prisma.$RolePermissionPayload<ExtArgs>[]
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8435,8 +8435,8 @@ export namespace Prisma {
    */
   export interface Prisma__RoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users<T extends Role$usersArgs<ExtArgs> = {}>(args?: Subset<T, Role$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rolePermissions<T extends Role$rolePermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Role$rolePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends Role$usersArgs<ExtArgs> = {}>(args?: Subset<T, Role$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8858,30 +8858,6 @@ export namespace Prisma {
   }
 
   /**
-   * Role.users
-   */
-  export type Role$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
    * Role.rolePermissions
    */
   export type Role$rolePermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8903,6 +8879,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RolePermissionScalarFieldEnum | RolePermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Role.users
+   */
+  export type Role$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -11380,12 +11380,12 @@ export namespace Prisma {
     registrantId?: boolean
     handlerId?: boolean
     status?: boolean
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
-    Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
-    Handler?: boolean | Registration$HandlerArgs<ExtArgs>
     DocumentMetadata?: boolean | Registration$DocumentMetadataArgs<ExtArgs>
     Notification?: boolean | Registration$NotificationArgs<ExtArgs>
+    Department?: boolean | Registration$DepartmentArgs<ExtArgs>
+    Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     _count?: boolean | RegistrationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["registration"]>
 
@@ -11398,10 +11398,10 @@ export namespace Prisma {
     registrantId?: boolean
     handlerId?: boolean
     status?: boolean
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
     Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
   }, ExtArgs["result"]["registration"]>
 
   export type RegistrationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11413,10 +11413,10 @@ export namespace Prisma {
     registrantId?: boolean
     handlerId?: boolean
     status?: boolean
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
     Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
   }, ExtArgs["result"]["registration"]>
 
   export type RegistrationSelectScalar = {
@@ -11432,36 +11432,36 @@ export namespace Prisma {
 
   export type RegistrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "registerId" | "registrationNo" | "createdAt" | "departmentId" | "registrantId" | "handlerId" | "status", ExtArgs["result"]["registration"]>
   export type RegistrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
-    Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
-    Handler?: boolean | Registration$HandlerArgs<ExtArgs>
     DocumentMetadata?: boolean | Registration$DocumentMetadataArgs<ExtArgs>
     Notification?: boolean | Registration$NotificationArgs<ExtArgs>
+    Department?: boolean | Registration$DepartmentArgs<ExtArgs>
+    Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     _count?: boolean | RegistrationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RegistrationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
     Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
   }
   export type RegistrationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Register?: boolean | RegisterDefaultArgs<ExtArgs>
     Department?: boolean | Registration$DepartmentArgs<ExtArgs>
-    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
     Handler?: boolean | Registration$HandlerArgs<ExtArgs>
+    Register?: boolean | RegisterDefaultArgs<ExtArgs>
+    Registrant?: boolean | Registration$RegistrantArgs<ExtArgs>
   }
 
   export type $RegistrationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Registration"
     objects: {
-      Register: Prisma.$RegisterPayload<ExtArgs>
-      Department: Prisma.$DepartmentPayload<ExtArgs> | null
-      Registrant: Prisma.$UserPayload<ExtArgs> | null
-      Handler: Prisma.$UserPayload<ExtArgs> | null
       DocumentMetadata: Prisma.$DocumentPayload<ExtArgs>[]
       Notification: Prisma.$NotificationPayload<ExtArgs>[]
+      Department: Prisma.$DepartmentPayload<ExtArgs> | null
+      Handler: Prisma.$UserPayload<ExtArgs> | null
+      Register: Prisma.$RegisterPayload<ExtArgs>
+      Registrant: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11866,12 +11866,12 @@ export namespace Prisma {
    */
   export interface Prisma__RegistrationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Register<T extends RegisterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RegisterDefaultArgs<ExtArgs>>): Prisma__RegisterClient<$Result.GetResult<Prisma.$RegisterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    Department<T extends Registration$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Registration$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    Registrant<T extends Registration$RegistrantArgs<ExtArgs> = {}>(args?: Subset<T, Registration$RegistrantArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    Handler<T extends Registration$HandlerArgs<ExtArgs> = {}>(args?: Subset<T, Registration$HandlerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     DocumentMetadata<T extends Registration$DocumentMetadataArgs<ExtArgs> = {}>(args?: Subset<T, Registration$DocumentMetadataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Notification<T extends Registration$NotificationArgs<ExtArgs> = {}>(args?: Subset<T, Registration$NotificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Department<T extends Registration$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Registration$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Handler<T extends Registration$HandlerArgs<ExtArgs> = {}>(args?: Subset<T, Registration$HandlerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Register<T extends RegisterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RegisterDefaultArgs<ExtArgs>>): Prisma__RegisterClient<$Result.GetResult<Prisma.$RegisterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Registrant<T extends Registration$RegistrantArgs<ExtArgs> = {}>(args?: Subset<T, Registration$RegistrantArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12305,63 +12305,6 @@ export namespace Prisma {
   }
 
   /**
-   * Registration.Department
-   */
-  export type Registration$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Department
-     */
-    select?: DepartmentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Department
-     */
-    omit?: DepartmentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentInclude<ExtArgs> | null
-    where?: DepartmentWhereInput
-  }
-
-  /**
-   * Registration.Registrant
-   */
-  export type Registration$RegistrantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
-   * Registration.Handler
-   */
-  export type Registration$HandlerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Registration.DocumentMetadata
    */
   export type Registration$DocumentMetadataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12407,6 +12350,63 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Registration.Department
+   */
+  export type Registration$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
+  }
+
+  /**
+   * Registration.Handler
+   */
+  export type Registration$HandlerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Registration.Registrant
+   */
+  export type Registration$RegistrantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -13572,6 +13572,7 @@ export namespace Prisma {
     updatedAt: Date | null
     isDeleted: boolean | null
     deletedAt: Date | null
+    image: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -13585,6 +13586,7 @@ export namespace Prisma {
     updatedAt: Date | null
     isDeleted: boolean | null
     deletedAt: Date | null
+    image: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -13598,6 +13600,7 @@ export namespace Prisma {
     updatedAt: number
     isDeleted: number
     deletedAt: number
+    image: number
     _all: number
   }
 
@@ -13613,6 +13616,7 @@ export namespace Prisma {
     updatedAt?: true
     isDeleted?: true
     deletedAt?: true
+    image?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -13626,6 +13630,7 @@ export namespace Prisma {
     updatedAt?: true
     isDeleted?: true
     deletedAt?: true
+    image?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -13639,6 +13644,7 @@ export namespace Prisma {
     updatedAt?: true
     isDeleted?: true
     deletedAt?: true
+    image?: true
     _all?: true
   }
 
@@ -13725,6 +13731,7 @@ export namespace Prisma {
     updatedAt: Date
     isDeleted: boolean
     deletedAt: Date | null
+    image: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -13755,13 +13762,14 @@ export namespace Prisma {
     updatedAt?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    image?: boolean
+    auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    loginAttempts?: boolean | User$loginAttemptsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    HandledRecords?: boolean | User$HandledRecordsArgs<ExtArgs>
+    RegisteredRecords?: boolean | User$RegisteredRecordsArgs<ExtArgs>
     Department?: boolean | User$DepartmentArgs<ExtArgs>
     Role?: boolean | User$RoleArgs<ExtArgs>
-    auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
-    RegisteredRecords?: boolean | User$RegisteredRecordsArgs<ExtArgs>
-    HandledRecords?: boolean | User$HandledRecordsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    loginAttempts?: boolean | User$loginAttemptsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -13776,6 +13784,7 @@ export namespace Prisma {
     updatedAt?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    image?: boolean
     Department?: boolean | User$DepartmentArgs<ExtArgs>
     Role?: boolean | User$RoleArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -13791,6 +13800,7 @@ export namespace Prisma {
     updatedAt?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    image?: boolean
     Department?: boolean | User$DepartmentArgs<ExtArgs>
     Role?: boolean | User$RoleArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -13806,17 +13816,18 @@ export namespace Prisma {
     updatedAt?: boolean
     isDeleted?: boolean
     deletedAt?: boolean
+    image?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "departmentId" | "roleId" | "createdAt" | "updatedAt" | "isDeleted" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "departmentId" | "roleId" | "createdAt" | "updatedAt" | "isDeleted" | "deletedAt" | "image", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    loginAttempts?: boolean | User$loginAttemptsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    HandledRecords?: boolean | User$HandledRecordsArgs<ExtArgs>
+    RegisteredRecords?: boolean | User$RegisteredRecordsArgs<ExtArgs>
     Department?: boolean | User$DepartmentArgs<ExtArgs>
     Role?: boolean | User$RoleArgs<ExtArgs>
-    auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
-    RegisteredRecords?: boolean | User$RegisteredRecordsArgs<ExtArgs>
-    HandledRecords?: boolean | User$HandledRecordsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    loginAttempts?: boolean | User$loginAttemptsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13831,13 +13842,13 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      loginAttempts: Prisma.$LoginAttemptPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      HandledRecords: Prisma.$RegistrationPayload<ExtArgs>[]
+      RegisteredRecords: Prisma.$RegistrationPayload<ExtArgs>[]
       Department: Prisma.$DepartmentPayload<ExtArgs> | null
       Role: Prisma.$RolePayload<ExtArgs> | null
-      auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
-      RegisteredRecords: Prisma.$RegistrationPayload<ExtArgs>[]
-      HandledRecords: Prisma.$RegistrationPayload<ExtArgs>[]
-      notifications: Prisma.$NotificationPayload<ExtArgs>[]
-      loginAttempts: Prisma.$LoginAttemptPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13850,6 +13861,7 @@ export namespace Prisma {
       updatedAt: Date
       isDeleted: boolean
       deletedAt: Date | null
+      image: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -14244,13 +14256,13 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    loginAttempts<T extends User$loginAttemptsArgs<ExtArgs> = {}>(args?: Subset<T, User$loginAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    HandledRecords<T extends User$HandledRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$HandledRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    RegisteredRecords<T extends User$RegisteredRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$RegisteredRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Department<T extends User$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, User$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Role<T extends User$RoleArgs<ExtArgs> = {}>(args?: Subset<T, User$RoleArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    RegisteredRecords<T extends User$RegisteredRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$RegisteredRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    HandledRecords<T extends User$HandledRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$HandledRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    loginAttempts<T extends User$loginAttemptsArgs<ExtArgs> = {}>(args?: Subset<T, User$loginAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14290,6 +14302,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly isDeleted: FieldRef<"User", 'Boolean'>
     readonly deletedAt: FieldRef<"User", 'DateTime'>
+    readonly image: FieldRef<"User", 'String'>
   }
     
 
@@ -14686,6 +14699,126 @@ export namespace Prisma {
   }
 
   /**
+   * User.auditLogs
+   */
+  export type User$auditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    cursor?: AuditLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.loginAttempts
+   */
+  export type User$loginAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginAttempt
+     */
+    select?: LoginAttemptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LoginAttempt
+     */
+    omit?: LoginAttemptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoginAttemptInclude<ExtArgs> | null
+    where?: LoginAttemptWhereInput
+    orderBy?: LoginAttemptOrderByWithRelationInput | LoginAttemptOrderByWithRelationInput[]
+    cursor?: LoginAttemptWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoginAttemptScalarFieldEnum | LoginAttemptScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.HandledRecords
+   */
+  export type User$HandledRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Registration
+     */
+    select?: RegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Registration
+     */
+    omit?: RegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistrationInclude<ExtArgs> | null
+    where?: RegistrationWhereInput
+    orderBy?: RegistrationOrderByWithRelationInput | RegistrationOrderByWithRelationInput[]
+    cursor?: RegistrationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegistrationScalarFieldEnum | RegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * User.RegisteredRecords
+   */
+  export type User$RegisteredRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Registration
+     */
+    select?: RegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Registration
+     */
+    omit?: RegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RegistrationInclude<ExtArgs> | null
+    where?: RegistrationWhereInput
+    orderBy?: RegistrationOrderByWithRelationInput | RegistrationOrderByWithRelationInput[]
+    cursor?: RegistrationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RegistrationScalarFieldEnum | RegistrationScalarFieldEnum[]
+  }
+
+  /**
    * User.Department
    */
   export type User$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14721,126 +14854,6 @@ export namespace Prisma {
      */
     include?: RoleInclude<ExtArgs> | null
     where?: RoleWhereInput
-  }
-
-  /**
-   * User.auditLogs
-   */
-  export type User$auditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AuditLog
-     */
-    select?: AuditLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AuditLog
-     */
-    omit?: AuditLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AuditLogInclude<ExtArgs> | null
-    where?: AuditLogWhereInput
-    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
-    cursor?: AuditLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
-  }
-
-  /**
-   * User.RegisteredRecords
-   */
-  export type User$RegisteredRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Registration
-     */
-    select?: RegistrationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Registration
-     */
-    omit?: RegistrationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RegistrationInclude<ExtArgs> | null
-    where?: RegistrationWhereInput
-    orderBy?: RegistrationOrderByWithRelationInput | RegistrationOrderByWithRelationInput[]
-    cursor?: RegistrationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RegistrationScalarFieldEnum | RegistrationScalarFieldEnum[]
-  }
-
-  /**
-   * User.HandledRecords
-   */
-  export type User$HandledRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Registration
-     */
-    select?: RegistrationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Registration
-     */
-    omit?: RegistrationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RegistrationInclude<ExtArgs> | null
-    where?: RegistrationWhereInput
-    orderBy?: RegistrationOrderByWithRelationInput | RegistrationOrderByWithRelationInput[]
-    cursor?: RegistrationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RegistrationScalarFieldEnum | RegistrationScalarFieldEnum[]
-  }
-
-  /**
-   * User.notifications
-   */
-  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Notification
-     */
-    select?: NotificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Notification
-     */
-    omit?: NotificationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationInclude<ExtArgs> | null
-    where?: NotificationWhereInput
-    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
-    cursor?: NotificationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
-  }
-
-  /**
-   * User.loginAttempts
-   */
-  export type User$loginAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LoginAttempt
-     */
-    select?: LoginAttemptSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LoginAttempt
-     */
-    omit?: LoginAttemptOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LoginAttemptInclude<ExtArgs> | null
-    where?: LoginAttemptWhereInput
-    orderBy?: LoginAttemptOrderByWithRelationInput | LoginAttemptOrderByWithRelationInput[]
-    cursor?: LoginAttemptWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LoginAttemptScalarFieldEnum | LoginAttemptScalarFieldEnum[]
   }
 
   /**
@@ -16132,8 +16145,8 @@ export namespace Prisma {
     status?: boolean
     isRead?: boolean
     createdAt?: boolean
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16144,8 +16157,8 @@ export namespace Prisma {
     status?: boolean
     isRead?: boolean
     createdAt?: boolean
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16156,8 +16169,8 @@ export namespace Prisma {
     status?: boolean
     isRead?: boolean
     createdAt?: boolean
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectScalar = {
@@ -16172,23 +16185,23 @@ export namespace Prisma {
 
   export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "registrationId" | "recipientId" | "message" | "status" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }
   export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }
   export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
     Recipient?: boolean | UserDefaultArgs<ExtArgs>
+    Registration?: boolean | RegistrationDefaultArgs<ExtArgs>
   }
 
   export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Notification"
     objects: {
-      Registration: Prisma.$RegistrationPayload<ExtArgs>
       Recipient: Prisma.$UserPayload<ExtArgs>
+      Registration: Prisma.$RegistrationPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16592,8 +16605,8 @@ export namespace Prisma {
    */
   export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Registration<T extends RegistrationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RegistrationDefaultArgs<ExtArgs>>): Prisma__RegistrationClient<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Recipient<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Registration<T extends RegistrationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RegistrationDefaultArgs<ExtArgs>>): Prisma__RegistrationClient<$Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18209,7 +18222,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     isDeleted: 'isDeleted',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    image: 'image'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18625,9 +18639,9 @@ export namespace Prisma {
     description?: StringNullableFilter<"Department"> | string | null
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
+    Register?: RegisterListRelationFilter
     registrationRecords?: RegistrationListRelationFilter
     users?: UserListRelationFilter
-    Register?: RegisterListRelationFilter
   }
 
   export type DepartmentOrderByWithRelationInput = {
@@ -18636,9 +18650,9 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Register?: RegisterOrderByRelationAggregateInput
     registrationRecords?: RegistrationOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
-    Register?: RegisterOrderByRelationAggregateInput
   }
 
   export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -18650,9 +18664,9 @@ export namespace Prisma {
     description?: StringNullableFilter<"Department"> | string | null
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
+    Register?: RegisterListRelationFilter
     registrationRecords?: RegistrationListRelationFilter
     users?: UserListRelationFilter
-    Register?: RegisterListRelationFilter
   }, "id" | "name">
 
   export type DepartmentOrderByWithAggregationInput = {
@@ -18740,8 +18754,8 @@ export namespace Prisma {
     roleId?: UuidFilter<"RolePermission"> | string
     permissionId?: UuidFilter<"RolePermission"> | string
     createdAt?: DateTimeFilter<"RolePermission"> | Date | string
-    Role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     Permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+    Role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
   }
 
   export type RolePermissionOrderByWithRelationInput = {
@@ -18749,8 +18763,8 @@ export namespace Prisma {
     roleId?: SortOrder
     permissionId?: SortOrder
     createdAt?: SortOrder
-    Role?: RoleOrderByWithRelationInput
     Permission?: PermissionOrderByWithRelationInput
+    Role?: RoleOrderByWithRelationInput
   }
 
   export type RolePermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -18762,8 +18776,8 @@ export namespace Prisma {
     roleId?: UuidFilter<"RolePermission"> | string
     permissionId?: UuidFilter<"RolePermission"> | string
     createdAt?: DateTimeFilter<"RolePermission"> | Date | string
-    Role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     Permission?: XOR<PermissionScalarRelationFilter, PermissionWhereInput>
+    Role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
   }, "id" | "roleId_permissionId">
 
   export type RolePermissionOrderByWithAggregationInput = {
@@ -18794,8 +18808,8 @@ export namespace Prisma {
     name?: StringFilter<"Role"> | string
     color?: StringFilter<"Role"> | string
     createdAt?: DateTimeFilter<"Role"> | Date | string
-    users?: UserListRelationFilter
     rolePermissions?: RolePermissionListRelationFilter
+    users?: UserListRelationFilter
   }
 
   export type RoleOrderByWithRelationInput = {
@@ -18803,8 +18817,8 @@ export namespace Prisma {
     name?: SortOrder
     color?: SortOrder
     createdAt?: SortOrder
-    users?: UserOrderByRelationAggregateInput
     rolePermissions?: RolePermissionOrderByRelationAggregateInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type RoleWhereUniqueInput = Prisma.AtLeast<{
@@ -18815,8 +18829,8 @@ export namespace Prisma {
     NOT?: RoleWhereInput | RoleWhereInput[]
     color?: StringFilter<"Role"> | string
     createdAt?: DateTimeFilter<"Role"> | Date | string
-    users?: UserListRelationFilter
     rolePermissions?: RolePermissionListRelationFilter
+    users?: UserListRelationFilter
   }, "id" | "name">
 
   export type RoleOrderByWithAggregationInput = {
@@ -18980,12 +18994,12 @@ export namespace Prisma {
     registrantId?: UuidNullableFilter<"Registration"> | string | null
     handlerId?: UuidNullableFilter<"Registration"> | string | null
     status?: EnumRecordStatusFilter<"Registration"> | $Enums.RecordStatus
-    Register?: XOR<RegisterScalarRelationFilter, RegisterWhereInput>
-    Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
-    Registrant?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    Handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     DocumentMetadata?: DocumentListRelationFilter
     Notification?: NotificationListRelationFilter
+    Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
+    Handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Register?: XOR<RegisterScalarRelationFilter, RegisterWhereInput>
+    Registrant?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type RegistrationOrderByWithRelationInput = {
@@ -18997,12 +19011,12 @@ export namespace Prisma {
     registrantId?: SortOrderInput | SortOrder
     handlerId?: SortOrderInput | SortOrder
     status?: SortOrder
-    Register?: RegisterOrderByWithRelationInput
-    Department?: DepartmentOrderByWithRelationInput
-    Registrant?: UserOrderByWithRelationInput
-    Handler?: UserOrderByWithRelationInput
     DocumentMetadata?: DocumentOrderByRelationAggregateInput
     Notification?: NotificationOrderByRelationAggregateInput
+    Department?: DepartmentOrderByWithRelationInput
+    Handler?: UserOrderByWithRelationInput
+    Register?: RegisterOrderByWithRelationInput
+    Registrant?: UserOrderByWithRelationInput
   }
 
   export type RegistrationWhereUniqueInput = Prisma.AtLeast<{
@@ -19018,12 +19032,12 @@ export namespace Prisma {
     registrantId?: UuidNullableFilter<"Registration"> | string | null
     handlerId?: UuidNullableFilter<"Registration"> | string | null
     status?: EnumRecordStatusFilter<"Registration"> | $Enums.RecordStatus
-    Register?: XOR<RegisterScalarRelationFilter, RegisterWhereInput>
-    Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
-    Registrant?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    Handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     DocumentMetadata?: DocumentListRelationFilter
     Notification?: NotificationListRelationFilter
+    Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
+    Handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Register?: XOR<RegisterScalarRelationFilter, RegisterWhereInput>
+    Registrant?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "registerId_registrationNo">
 
   export type RegistrationOrderByWithAggregationInput = {
@@ -19150,13 +19164,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    image?: StringNullableFilter<"User"> | string | null
+    auditLogs?: AuditLogListRelationFilter
+    loginAttempts?: LoginAttemptListRelationFilter
+    notifications?: NotificationListRelationFilter
+    HandledRecords?: RegistrationListRelationFilter
+    RegisteredRecords?: RegistrationListRelationFilter
     Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
     Role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
-    auditLogs?: AuditLogListRelationFilter
-    RegisteredRecords?: RegistrationListRelationFilter
-    HandledRecords?: RegistrationListRelationFilter
-    notifications?: NotificationListRelationFilter
-    loginAttempts?: LoginAttemptListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -19170,13 +19185,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    auditLogs?: AuditLogOrderByRelationAggregateInput
+    loginAttempts?: LoginAttemptOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
+    HandledRecords?: RegistrationOrderByRelationAggregateInput
+    RegisteredRecords?: RegistrationOrderByRelationAggregateInput
     Department?: DepartmentOrderByWithRelationInput
     Role?: RoleOrderByWithRelationInput
-    auditLogs?: AuditLogOrderByRelationAggregateInput
-    RegisteredRecords?: RegistrationOrderByRelationAggregateInput
-    HandledRecords?: RegistrationOrderByRelationAggregateInput
-    notifications?: NotificationOrderByRelationAggregateInput
-    loginAttempts?: LoginAttemptOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -19193,13 +19209,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    image?: StringNullableFilter<"User"> | string | null
+    auditLogs?: AuditLogListRelationFilter
+    loginAttempts?: LoginAttemptListRelationFilter
+    notifications?: NotificationListRelationFilter
+    HandledRecords?: RegistrationListRelationFilter
+    RegisteredRecords?: RegistrationListRelationFilter
     Department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
     Role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
-    auditLogs?: AuditLogListRelationFilter
-    RegisteredRecords?: RegistrationListRelationFilter
-    HandledRecords?: RegistrationListRelationFilter
-    notifications?: NotificationListRelationFilter
-    loginAttempts?: LoginAttemptListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -19213,6 +19230,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -19232,6 +19250,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    image?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type LoginAttemptWhereInput = {
@@ -19305,8 +19324,8 @@ export namespace Prisma {
     status?: EnumNotificationStatusFilter<"Notification"> | $Enums.NotificationStatus
     isRead?: BoolFilter<"Notification"> | boolean
     createdAt?: DateTimeFilter<"Notification"> | Date | string
-    Registration?: XOR<RegistrationScalarRelationFilter, RegistrationWhereInput>
     Recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+    Registration?: XOR<RegistrationScalarRelationFilter, RegistrationWhereInput>
   }
 
   export type NotificationOrderByWithRelationInput = {
@@ -19317,8 +19336,8 @@ export namespace Prisma {
     status?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
-    Registration?: RegistrationOrderByWithRelationInput
     Recipient?: UserOrderByWithRelationInput
+    Registration?: RegistrationOrderByWithRelationInput
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -19332,8 +19351,8 @@ export namespace Prisma {
     status?: EnumNotificationStatusFilter<"Notification"> | $Enums.NotificationStatus
     isRead?: BoolFilter<"Notification"> | boolean
     createdAt?: DateTimeFilter<"Notification"> | Date | string
-    Registration?: XOR<RegistrationScalarRelationFilter, RegistrationWhereInput>
     Recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+    Registration?: XOR<RegistrationScalarRelationFilter, RegistrationWhereInput>
   }, "id">
 
   export type NotificationOrderByWithAggregationInput = {
@@ -19577,9 +19596,9 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    Register?: RegisterCreateNestedManyWithoutDepartmentInput
     registrationRecords?: RegistrationCreateNestedManyWithoutDepartmentInput
     users?: UserCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUncheckedCreateInput = {
@@ -19588,9 +19607,9 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
     registrationRecords?: RegistrationUncheckedCreateNestedManyWithoutDepartmentInput
     users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUpdateInput = {
@@ -19599,9 +19618,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
     registrationRecords?: RegistrationUpdateManyWithoutDepartmentNestedInput
     users?: UserUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentUncheckedUpdateInput = {
@@ -19610,9 +19629,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
     registrationRecords?: RegistrationUncheckedUpdateManyWithoutDepartmentNestedInput
     users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentCreateManyInput = {
@@ -19702,8 +19721,8 @@ export namespace Prisma {
   export type RolePermissionCreateInput = {
     id?: string
     createdAt?: Date | string
-    Role: RoleCreateNestedOneWithoutRolePermissionsInput
     Permission: PermissionCreateNestedOneWithoutRolePermissionsInput
+    Role: RoleCreateNestedOneWithoutRolePermissionsInput
   }
 
   export type RolePermissionUncheckedCreateInput = {
@@ -19716,8 +19735,8 @@ export namespace Prisma {
   export type RolePermissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Role?: RoleUpdateOneRequiredWithoutRolePermissionsNestedInput
     Permission?: PermissionUpdateOneRequiredWithoutRolePermissionsNestedInput
+    Role?: RoleUpdateOneRequiredWithoutRolePermissionsNestedInput
   }
 
   export type RolePermissionUncheckedUpdateInput = {
@@ -19751,8 +19770,8 @@ export namespace Prisma {
     name: string
     color?: string
     createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutRoleInput
     rolePermissions?: RolePermissionCreateNestedManyWithoutRoleInput
+    users?: UserCreateNestedManyWithoutRoleInput
   }
 
   export type RoleUncheckedCreateInput = {
@@ -19760,8 +19779,8 @@ export namespace Prisma {
     name: string
     color?: string
     createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutRoleInput
     rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutRoleInput
+    users?: UserUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type RoleUpdateInput = {
@@ -19769,8 +19788,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutRoleNestedInput
     rolePermissions?: RolePermissionUpdateManyWithoutRoleNestedInput
+    users?: UserUpdateManyWithoutRoleNestedInput
   }
 
   export type RoleUncheckedUpdateInput = {
@@ -19778,8 +19797,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
     rolePermissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type RoleCreateManyInput = {
@@ -19940,12 +19959,12 @@ export namespace Prisma {
     registrationNo?: number | null
     createdAt?: Date | string
     status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
     DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
     Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
   }
 
   export type RegistrationUncheckedCreateInput = {
@@ -19966,12 +19985,12 @@ export namespace Prisma {
     registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
     DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
     Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
   }
 
   export type RegistrationUncheckedUpdateInput = {
@@ -20115,13 +20134,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
     Department?: DepartmentCreateNestedOneWithoutUsersInput
     Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20135,11 +20155,12 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
     loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
   }
 
   export type UserUpdateInput = {
@@ -20151,13 +20172,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
     Department?: DepartmentUpdateOneWithoutUsersNestedInput
     Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20171,11 +20193,12 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
     loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20189,6 +20212,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -20200,6 +20224,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -20213,6 +20238,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LoginAttemptCreateInput = {
@@ -20283,8 +20309,8 @@ export namespace Prisma {
     status?: $Enums.NotificationStatus
     isRead?: boolean
     createdAt?: Date | string
-    Registration: RegistrationCreateNestedOneWithoutNotificationInput
     Recipient: UserCreateNestedOneWithoutNotificationsInput
+    Registration: RegistrationCreateNestedOneWithoutNotificationInput
   }
 
   export type NotificationUncheckedCreateInput = {
@@ -20303,8 +20329,8 @@ export namespace Prisma {
     status?: EnumNotificationStatusFieldUpdateOperationsInput | $Enums.NotificationStatus
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Registration?: RegistrationUpdateOneRequiredWithoutNotificationNestedInput
     Recipient?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+    Registration?: RegistrationUpdateOneRequiredWithoutNotificationNestedInput
   }
 
   export type NotificationUncheckedUpdateInput = {
@@ -20712,6 +20738,12 @@ export namespace Prisma {
     _max?: NestedEnumBackupStatusFilter<$PrismaModel>
   }
 
+  export type RegisterListRelationFilter = {
+    every?: RegisterWhereInput
+    some?: RegisterWhereInput
+    none?: RegisterWhereInput
+  }
+
   export type RegistrationListRelationFilter = {
     every?: RegistrationWhereInput
     some?: RegistrationWhereInput
@@ -20724,10 +20756,8 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
-  export type RegisterListRelationFilter = {
-    every?: RegisterWhereInput
-    some?: RegisterWhereInput
-    none?: RegisterWhereInput
+  export type RegisterOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type RegistrationOrderByRelationAggregateInput = {
@@ -20735,10 +20765,6 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type RegisterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20800,14 +20826,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type RoleScalarRelationFilter = {
-    is?: RoleWhereInput
-    isNot?: RoleWhereInput
-  }
-
   export type PermissionScalarRelationFilter = {
     is?: PermissionWhereInput
     isNot?: PermissionWhereInput
+  }
+
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
   }
 
   export type RolePermissionRoleIdPermissionIdCompoundUniqueInput = {
@@ -21000,16 +21026,6 @@ export namespace Prisma {
     not?: NestedEnumRecordStatusFilter<$PrismaModel> | $Enums.RecordStatus
   }
 
-  export type RegisterScalarRelationFilter = {
-    is?: RegisterWhereInput
-    isNot?: RegisterWhereInput
-  }
-
-  export type DepartmentNullableScalarRelationFilter = {
-    is?: DepartmentWhereInput | null
-    isNot?: DepartmentWhereInput | null
-  }
-
   export type DocumentListRelationFilter = {
     every?: DocumentWhereInput
     some?: DocumentWhereInput
@@ -21020,6 +21036,16 @@ export namespace Prisma {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
     none?: NotificationWhereInput
+  }
+
+  export type DepartmentNullableScalarRelationFilter = {
+    is?: DepartmentWhereInput | null
+    isNot?: DepartmentWhereInput | null
+  }
+
+  export type RegisterScalarRelationFilter = {
+    is?: RegisterWhereInput
+    isNot?: RegisterWhereInput
   }
 
   export type DocumentOrderByRelationAggregateInput = {
@@ -21202,11 +21228,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type RoleNullableScalarRelationFilter = {
-    is?: RoleWhereInput | null
-    isNot?: RoleWhereInput | null
-  }
-
   export type AuditLogListRelationFilter = {
     every?: AuditLogWhereInput
     some?: AuditLogWhereInput
@@ -21217,6 +21238,11 @@ export namespace Prisma {
     every?: LoginAttemptWhereInput
     some?: LoginAttemptWhereInput
     none?: LoginAttemptWhereInput
+  }
+
+  export type RoleNullableScalarRelationFilter = {
+    is?: RoleWhereInput | null
+    isNot?: RoleWhereInput | null
   }
 
   export type AuditLogOrderByRelationAggregateInput = {
@@ -21238,6 +21264,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    image?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -21251,6 +21278,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    image?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -21264,6 +21292,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     isDeleted?: SortOrder
     deletedAt?: SortOrder
+    image?: SortOrder
   }
 
   export type LoginAttemptCountOrderByAggregateInput = {
@@ -21414,6 +21443,13 @@ export namespace Prisma {
     set?: $Enums.BackupStatus
   }
 
+  export type RegisterCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput> | RegisterCreateWithoutDepartmentInput[] | RegisterUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: RegisterCreateOrConnectWithoutDepartmentInput | RegisterCreateOrConnectWithoutDepartmentInput[]
+    createMany?: RegisterCreateManyDepartmentInputEnvelope
+    connect?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
+  }
+
   export type RegistrationCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<RegistrationCreateWithoutDepartmentInput, RegistrationUncheckedCreateWithoutDepartmentInput> | RegistrationCreateWithoutDepartmentInput[] | RegistrationUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: RegistrationCreateOrConnectWithoutDepartmentInput | RegistrationCreateOrConnectWithoutDepartmentInput[]
@@ -21428,7 +21464,7 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type RegisterCreateNestedManyWithoutDepartmentInput = {
+  export type RegisterUncheckedCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput> | RegisterCreateWithoutDepartmentInput[] | RegisterUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: RegisterCreateOrConnectWithoutDepartmentInput | RegisterCreateOrConnectWithoutDepartmentInput[]
     createMany?: RegisterCreateManyDepartmentInputEnvelope
@@ -21449,11 +21485,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type RegisterUncheckedCreateNestedManyWithoutDepartmentInput = {
+  export type RegisterUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput> | RegisterCreateWithoutDepartmentInput[] | RegisterUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: RegisterCreateOrConnectWithoutDepartmentInput | RegisterCreateOrConnectWithoutDepartmentInput[]
+    upsert?: RegisterUpsertWithWhereUniqueWithoutDepartmentInput | RegisterUpsertWithWhereUniqueWithoutDepartmentInput[]
     createMany?: RegisterCreateManyDepartmentInputEnvelope
+    set?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
+    disconnect?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
+    delete?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
     connect?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
+    update?: RegisterUpdateWithWhereUniqueWithoutDepartmentInput | RegisterUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: RegisterUpdateManyWithWhereWithoutDepartmentInput | RegisterUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
   }
 
   export type RegistrationUpdateManyWithoutDepartmentNestedInput = {
@@ -21484,7 +21527,7 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type RegisterUpdateManyWithoutDepartmentNestedInput = {
+  export type RegisterUncheckedUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput> | RegisterCreateWithoutDepartmentInput[] | RegisterUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: RegisterCreateOrConnectWithoutDepartmentInput | RegisterCreateOrConnectWithoutDepartmentInput[]
     upsert?: RegisterUpsertWithWhereUniqueWithoutDepartmentInput | RegisterUpsertWithWhereUniqueWithoutDepartmentInput[]
@@ -21524,20 +21567,6 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutDepartmentInput | UserUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: UserUpdateManyWithWhereWithoutDepartmentInput | UserUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type RegisterUncheckedUpdateManyWithoutDepartmentNestedInput = {
-    create?: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput> | RegisterCreateWithoutDepartmentInput[] | RegisterUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: RegisterCreateOrConnectWithoutDepartmentInput | RegisterCreateOrConnectWithoutDepartmentInput[]
-    upsert?: RegisterUpsertWithWhereUniqueWithoutDepartmentInput | RegisterUpsertWithWhereUniqueWithoutDepartmentInput[]
-    createMany?: RegisterCreateManyDepartmentInputEnvelope
-    set?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
-    disconnect?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
-    delete?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
-    connect?: RegisterWhereUniqueInput | RegisterWhereUniqueInput[]
-    update?: RegisterUpdateWithWhereUniqueWithoutDepartmentInput | RegisterUpdateWithWhereUniqueWithoutDepartmentInput[]
-    updateMany?: RegisterUpdateManyWithWhereWithoutDepartmentInput | RegisterUpdateManyWithWhereWithoutDepartmentInput[]
-    deleteMany?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
   }
 
   export type RolePermissionCreateNestedManyWithoutPermissionInput = {
@@ -21582,24 +21611,16 @@ export namespace Prisma {
     deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
   }
 
-  export type RoleCreateNestedOneWithoutRolePermissionsInput = {
-    create?: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
-    connectOrCreate?: RoleCreateOrConnectWithoutRolePermissionsInput
-    connect?: RoleWhereUniqueInput
-  }
-
   export type PermissionCreateNestedOneWithoutRolePermissionsInput = {
     create?: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
     connectOrCreate?: PermissionCreateOrConnectWithoutRolePermissionsInput
     connect?: PermissionWhereUniqueInput
   }
 
-  export type RoleUpdateOneRequiredWithoutRolePermissionsNestedInput = {
+  export type RoleCreateNestedOneWithoutRolePermissionsInput = {
     create?: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
     connectOrCreate?: RoleCreateOrConnectWithoutRolePermissionsInput
-    upsert?: RoleUpsertWithoutRolePermissionsInput
     connect?: RoleWhereUniqueInput
-    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutRolePermissionsInput, RoleUpdateWithoutRolePermissionsInput>, RoleUncheckedUpdateWithoutRolePermissionsInput>
   }
 
   export type PermissionUpdateOneRequiredWithoutRolePermissionsNestedInput = {
@@ -21610,11 +21631,12 @@ export namespace Prisma {
     update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutRolePermissionsInput, PermissionUpdateWithoutRolePermissionsInput>, PermissionUncheckedUpdateWithoutRolePermissionsInput>
   }
 
-  export type UserCreateNestedManyWithoutRoleInput = {
-    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    createMany?: UserCreateManyRoleInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  export type RoleUpdateOneRequiredWithoutRolePermissionsNestedInput = {
+    create?: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutRolePermissionsInput
+    upsert?: RoleUpsertWithoutRolePermissionsInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutRolePermissionsInput, RoleUpdateWithoutRolePermissionsInput>, RoleUncheckedUpdateWithoutRolePermissionsInput>
   }
 
   export type RolePermissionCreateNestedManyWithoutRoleInput = {
@@ -21624,7 +21646,7 @@ export namespace Prisma {
     connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
   }
 
-  export type UserUncheckedCreateNestedManyWithoutRoleInput = {
+  export type UserCreateNestedManyWithoutRoleInput = {
     create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
     createMany?: UserCreateManyRoleInputEnvelope
@@ -21638,18 +21660,11 @@ export namespace Prisma {
     connect?: RolePermissionWhereUniqueInput | RolePermissionWhereUniqueInput[]
   }
 
-  export type UserUpdateManyWithoutRoleNestedInput = {
+  export type UserUncheckedCreateNestedManyWithoutRoleInput = {
     create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutRoleInput | UserUpsertWithWhereUniqueWithoutRoleInput[]
     createMany?: UserCreateManyRoleInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutRoleInput | UserUpdateWithWhereUniqueWithoutRoleInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutRoleInput | UserUpdateManyWithWhereWithoutRoleInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type RolePermissionUpdateManyWithoutRoleNestedInput = {
@@ -21666,7 +21681,7 @@ export namespace Prisma {
     deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
   }
 
-  export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
+  export type UserUpdateManyWithoutRoleNestedInput = {
     create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
     upsert?: UserUpsertWithWhereUniqueWithoutRoleInput | UserUpsertWithWhereUniqueWithoutRoleInput[]
@@ -21692,6 +21707,20 @@ export namespace Prisma {
     update?: RolePermissionUpdateWithWhereUniqueWithoutRoleInput | RolePermissionUpdateWithWhereUniqueWithoutRoleInput[]
     updateMany?: RolePermissionUpdateManyWithWhereWithoutRoleInput | RolePermissionUpdateManyWithWhereWithoutRoleInput[]
     deleteMany?: RolePermissionScalarWhereInput | RolePermissionScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRoleInput | UserUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: UserCreateManyRoleInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRoleInput | UserUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRoleInput | UserUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type RegisterCreateNestedManyWithoutRegisterTypeInput = {
@@ -21822,30 +21851,6 @@ export namespace Prisma {
     deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
   }
 
-  export type RegisterCreateNestedOneWithoutRecordsInput = {
-    create?: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
-    connectOrCreate?: RegisterCreateOrConnectWithoutRecordsInput
-    connect?: RegisterWhereUniqueInput
-  }
-
-  export type DepartmentCreateNestedOneWithoutRegistrationRecordsInput = {
-    create?: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutRegistrationRecordsInput
-    connect?: DepartmentWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutRegisteredRecordsInput = {
-    create?: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRegisteredRecordsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutHandledRecordsInput = {
-    create?: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHandledRecordsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type DocumentCreateNestedManyWithoutRegistrationInput = {
     create?: XOR<DocumentCreateWithoutRegistrationInput, DocumentUncheckedCreateWithoutRegistrationInput> | DocumentCreateWithoutRegistrationInput[] | DocumentUncheckedCreateWithoutRegistrationInput[]
     connectOrCreate?: DocumentCreateOrConnectWithoutRegistrationInput | DocumentCreateOrConnectWithoutRegistrationInput[]
@@ -21858,6 +21863,30 @@ export namespace Prisma {
     connectOrCreate?: NotificationCreateOrConnectWithoutRegistrationInput | NotificationCreateOrConnectWithoutRegistrationInput[]
     createMany?: NotificationCreateManyRegistrationInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type DepartmentCreateNestedOneWithoutRegistrationRecordsInput = {
+    create?: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutRegistrationRecordsInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutHandledRecordsInput = {
+    create?: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHandledRecordsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RegisterCreateNestedOneWithoutRecordsInput = {
+    create?: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: RegisterCreateOrConnectWithoutRecordsInput
+    connect?: RegisterWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRegisteredRecordsInput = {
+    create?: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRegisteredRecordsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type DocumentUncheckedCreateNestedManyWithoutRegistrationInput = {
@@ -21876,44 +21905,6 @@ export namespace Prisma {
 
   export type EnumRecordStatusFieldUpdateOperationsInput = {
     set?: $Enums.RecordStatus
-  }
-
-  export type RegisterUpdateOneRequiredWithoutRecordsNestedInput = {
-    create?: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
-    connectOrCreate?: RegisterCreateOrConnectWithoutRecordsInput
-    upsert?: RegisterUpsertWithoutRecordsInput
-    connect?: RegisterWhereUniqueInput
-    update?: XOR<XOR<RegisterUpdateToOneWithWhereWithoutRecordsInput, RegisterUpdateWithoutRecordsInput>, RegisterUncheckedUpdateWithoutRecordsInput>
-  }
-
-  export type DepartmentUpdateOneWithoutRegistrationRecordsNestedInput = {
-    create?: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutRegistrationRecordsInput
-    upsert?: DepartmentUpsertWithoutRegistrationRecordsInput
-    disconnect?: DepartmentWhereInput | boolean
-    delete?: DepartmentWhereInput | boolean
-    connect?: DepartmentWhereUniqueInput
-    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutRegistrationRecordsInput, DepartmentUpdateWithoutRegistrationRecordsInput>, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
-  }
-
-  export type UserUpdateOneWithoutRegisteredRecordsNestedInput = {
-    create?: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRegisteredRecordsInput
-    upsert?: UserUpsertWithoutRegisteredRecordsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRegisteredRecordsInput, UserUpdateWithoutRegisteredRecordsInput>, UserUncheckedUpdateWithoutRegisteredRecordsInput>
-  }
-
-  export type UserUpdateOneWithoutHandledRecordsNestedInput = {
-    create?: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHandledRecordsInput
-    upsert?: UserUpsertWithoutHandledRecordsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHandledRecordsInput, UserUpdateWithoutHandledRecordsInput>, UserUncheckedUpdateWithoutHandledRecordsInput>
   }
 
   export type DocumentUpdateManyWithoutRegistrationNestedInput = {
@@ -21942,6 +21933,44 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutRegistrationInput | NotificationUpdateWithWhereUniqueWithoutRegistrationInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutRegistrationInput | NotificationUpdateManyWithWhereWithoutRegistrationInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type DepartmentUpdateOneWithoutRegistrationRecordsNestedInput = {
+    create?: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutRegistrationRecordsInput
+    upsert?: DepartmentUpsertWithoutRegistrationRecordsInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutRegistrationRecordsInput, DepartmentUpdateWithoutRegistrationRecordsInput>, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
+  }
+
+  export type UserUpdateOneWithoutHandledRecordsNestedInput = {
+    create?: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHandledRecordsInput
+    upsert?: UserUpsertWithoutHandledRecordsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHandledRecordsInput, UserUpdateWithoutHandledRecordsInput>, UserUncheckedUpdateWithoutHandledRecordsInput>
+  }
+
+  export type RegisterUpdateOneRequiredWithoutRecordsNestedInput = {
+    create?: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: RegisterCreateOrConnectWithoutRecordsInput
+    upsert?: RegisterUpsertWithoutRecordsInput
+    connect?: RegisterWhereUniqueInput
+    update?: XOR<XOR<RegisterUpdateToOneWithWhereWithoutRecordsInput, RegisterUpdateWithoutRecordsInput>, RegisterUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type UserUpdateOneWithoutRegisteredRecordsNestedInput = {
+    create?: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRegisteredRecordsInput
+    upsert?: UserUpsertWithoutRegisteredRecordsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRegisteredRecordsInput, UserUpdateWithoutRegisteredRecordsInput>, UserUncheckedUpdateWithoutRegisteredRecordsInput>
   }
 
   export type DocumentUncheckedUpdateManyWithoutRegistrationNestedInput = {
@@ -22002,6 +22031,41 @@ export namespace Prisma {
     update?: XOR<XOR<RegistrationUpdateToOneWithWhereWithoutDocumentMetadataInput, RegistrationUpdateWithoutDocumentMetadataInput>, RegistrationUncheckedUpdateWithoutDocumentMetadataInput>
   }
 
+  export type AuditLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type LoginAttemptCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
+    createMany?: LoginAttemptCreateManyUserInputEnvelope
+    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type RegistrationCreateNestedManyWithoutHandlerInput = {
+    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
+    createMany?: RegistrationCreateManyHandlerInputEnvelope
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+  }
+
+  export type RegistrationCreateNestedManyWithoutRegistrantInput = {
+    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
+    createMany?: RegistrationCreateManyRegistrantInputEnvelope
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+  }
+
   export type DepartmentCreateNestedOneWithoutUsersInput = {
     create?: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
     connectOrCreate?: DepartmentCreateOrConnectWithoutUsersInput
@@ -22014,41 +22078,6 @@ export namespace Prisma {
     connect?: RoleWhereUniqueInput
   }
 
-  export type AuditLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
-    createMany?: AuditLogCreateManyUserInputEnvelope
-    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
-  }
-
-  export type RegistrationCreateNestedManyWithoutRegistrantInput = {
-    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
-    createMany?: RegistrationCreateManyRegistrantInputEnvelope
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-  }
-
-  export type RegistrationCreateNestedManyWithoutHandlerInput = {
-    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
-    createMany?: RegistrationCreateManyHandlerInputEnvelope
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-  }
-
-  export type NotificationCreateNestedManyWithoutRecipientInput = {
-    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
-    createMany?: NotificationCreateManyRecipientInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-  }
-
-  export type LoginAttemptCreateNestedManyWithoutUserInput = {
-    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
-    createMany?: LoginAttemptCreateManyUserInputEnvelope
-    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-  }
-
   export type AuditLogUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -22056,18 +22085,11 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
-  export type RegistrationUncheckedCreateNestedManyWithoutRegistrantInput = {
-    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
-    createMany?: RegistrationCreateManyRegistrantInputEnvelope
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-  }
-
-  export type RegistrationUncheckedCreateNestedManyWithoutHandlerInput = {
-    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
-    createMany?: RegistrationCreateManyHandlerInputEnvelope
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+  export type LoginAttemptUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
+    createMany?: LoginAttemptCreateManyUserInputEnvelope
+    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutRecipientInput = {
@@ -22077,11 +22099,88 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type LoginAttemptUncheckedCreateNestedManyWithoutUserInput = {
+  export type RegistrationUncheckedCreateNestedManyWithoutHandlerInput = {
+    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
+    createMany?: RegistrationCreateManyHandlerInputEnvelope
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+  }
+
+  export type RegistrationUncheckedCreateNestedManyWithoutRegistrantInput = {
+    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
+    createMany?: RegistrationCreateManyRegistrantInputEnvelope
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+  }
+
+  export type AuditLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutUserInput | AuditLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutUserInput | AuditLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutUserInput | AuditLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type LoginAttemptUpdateManyWithoutUserNestedInput = {
     create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
+    upsert?: LoginAttemptUpsertWithWhereUniqueWithoutUserInput | LoginAttemptUpsertWithWhereUniqueWithoutUserInput[]
     createMany?: LoginAttemptCreateManyUserInputEnvelope
+    set?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    disconnect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    delete?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
     connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    update?: LoginAttemptUpdateWithWhereUniqueWithoutUserInput | LoginAttemptUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoginAttemptUpdateManyWithWhereWithoutUserInput | LoginAttemptUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoginAttemptScalarWhereInput | LoginAttemptScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutRecipientInput | NotificationUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: NotificationCreateManyRecipientInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutRecipientInput | NotificationUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutRecipientInput | NotificationUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type RegistrationUpdateManyWithoutHandlerNestedInput = {
+    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
+    upsert?: RegistrationUpsertWithWhereUniqueWithoutHandlerInput | RegistrationUpsertWithWhereUniqueWithoutHandlerInput[]
+    createMany?: RegistrationCreateManyHandlerInputEnvelope
+    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    update?: RegistrationUpdateWithWhereUniqueWithoutHandlerInput | RegistrationUpdateWithWhereUniqueWithoutHandlerInput[]
+    updateMany?: RegistrationUpdateManyWithWhereWithoutHandlerInput | RegistrationUpdateManyWithWhereWithoutHandlerInput[]
+    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
+  }
+
+  export type RegistrationUpdateManyWithoutRegistrantNestedInput = {
+    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
+    upsert?: RegistrationUpsertWithWhereUniqueWithoutRegistrantInput | RegistrationUpsertWithWhereUniqueWithoutRegistrantInput[]
+    createMany?: RegistrationCreateManyRegistrantInputEnvelope
+    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    update?: RegistrationUpdateWithWhereUniqueWithoutRegistrantInput | RegistrationUpdateWithWhereUniqueWithoutRegistrantInput[]
+    updateMany?: RegistrationUpdateManyWithWhereWithoutRegistrantInput | RegistrationUpdateManyWithWhereWithoutRegistrantInput[]
+    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
   }
 
   export type DepartmentUpdateOneWithoutUsersNestedInput = {
@@ -22104,76 +22203,6 @@ export namespace Prisma {
     update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUsersInput, RoleUpdateWithoutUsersInput>, RoleUncheckedUpdateWithoutUsersInput>
   }
 
-  export type AuditLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
-    upsert?: AuditLogUpsertWithWhereUniqueWithoutUserInput | AuditLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AuditLogCreateManyUserInputEnvelope
-    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
-    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
-    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
-    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
-    update?: AuditLogUpdateWithWhereUniqueWithoutUserInput | AuditLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AuditLogUpdateManyWithWhereWithoutUserInput | AuditLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
-  }
-
-  export type RegistrationUpdateManyWithoutRegistrantNestedInput = {
-    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
-    upsert?: RegistrationUpsertWithWhereUniqueWithoutRegistrantInput | RegistrationUpsertWithWhereUniqueWithoutRegistrantInput[]
-    createMany?: RegistrationCreateManyRegistrantInputEnvelope
-    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    update?: RegistrationUpdateWithWhereUniqueWithoutRegistrantInput | RegistrationUpdateWithWhereUniqueWithoutRegistrantInput[]
-    updateMany?: RegistrationUpdateManyWithWhereWithoutRegistrantInput | RegistrationUpdateManyWithWhereWithoutRegistrantInput[]
-    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
-  }
-
-  export type RegistrationUpdateManyWithoutHandlerNestedInput = {
-    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
-    upsert?: RegistrationUpsertWithWhereUniqueWithoutHandlerInput | RegistrationUpsertWithWhereUniqueWithoutHandlerInput[]
-    createMany?: RegistrationCreateManyHandlerInputEnvelope
-    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    update?: RegistrationUpdateWithWhereUniqueWithoutHandlerInput | RegistrationUpdateWithWhereUniqueWithoutHandlerInput[]
-    updateMany?: RegistrationUpdateManyWithWhereWithoutHandlerInput | RegistrationUpdateManyWithWhereWithoutHandlerInput[]
-    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
-  }
-
-  export type NotificationUpdateManyWithoutRecipientNestedInput = {
-    create?: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput> | NotificationCreateWithoutRecipientInput[] | NotificationUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutRecipientInput | NotificationCreateOrConnectWithoutRecipientInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutRecipientInput | NotificationUpsertWithWhereUniqueWithoutRecipientInput[]
-    createMany?: NotificationCreateManyRecipientInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutRecipientInput | NotificationUpdateWithWhereUniqueWithoutRecipientInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutRecipientInput | NotificationUpdateManyWithWhereWithoutRecipientInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-  }
-
-  export type LoginAttemptUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
-    upsert?: LoginAttemptUpsertWithWhereUniqueWithoutUserInput | LoginAttemptUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LoginAttemptCreateManyUserInputEnvelope
-    set?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    disconnect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    delete?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    update?: LoginAttemptUpdateWithWhereUniqueWithoutUserInput | LoginAttemptUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LoginAttemptUpdateManyWithWhereWithoutUserInput | LoginAttemptUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LoginAttemptScalarWhereInput | LoginAttemptScalarWhereInput[]
-  }
-
   export type AuditLogUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -22188,32 +22217,18 @@ export namespace Prisma {
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
   }
 
-  export type RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput = {
-    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
-    upsert?: RegistrationUpsertWithWhereUniqueWithoutRegistrantInput | RegistrationUpsertWithWhereUniqueWithoutRegistrantInput[]
-    createMany?: RegistrationCreateManyRegistrantInputEnvelope
-    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    update?: RegistrationUpdateWithWhereUniqueWithoutRegistrantInput | RegistrationUpdateWithWhereUniqueWithoutRegistrantInput[]
-    updateMany?: RegistrationUpdateManyWithWhereWithoutRegistrantInput | RegistrationUpdateManyWithWhereWithoutRegistrantInput[]
-    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
-  }
-
-  export type RegistrationUncheckedUpdateManyWithoutHandlerNestedInput = {
-    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
-    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
-    upsert?: RegistrationUpsertWithWhereUniqueWithoutHandlerInput | RegistrationUpsertWithWhereUniqueWithoutHandlerInput[]
-    createMany?: RegistrationCreateManyHandlerInputEnvelope
-    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
-    update?: RegistrationUpdateWithWhereUniqueWithoutHandlerInput | RegistrationUpdateWithWhereUniqueWithoutHandlerInput[]
-    updateMany?: RegistrationUpdateManyWithWhereWithoutHandlerInput | RegistrationUpdateManyWithWhereWithoutHandlerInput[]
-    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
+  export type LoginAttemptUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
+    upsert?: LoginAttemptUpsertWithWhereUniqueWithoutUserInput | LoginAttemptUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LoginAttemptCreateManyUserInputEnvelope
+    set?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    disconnect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    delete?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
+    update?: LoginAttemptUpdateWithWhereUniqueWithoutUserInput | LoginAttemptUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoginAttemptUpdateManyWithWhereWithoutUserInput | LoginAttemptUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoginAttemptScalarWhereInput | LoginAttemptScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutRecipientNestedInput = {
@@ -22230,18 +22245,32 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type LoginAttemptUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput> | LoginAttemptCreateWithoutUserInput[] | LoginAttemptUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LoginAttemptCreateOrConnectWithoutUserInput | LoginAttemptCreateOrConnectWithoutUserInput[]
-    upsert?: LoginAttemptUpsertWithWhereUniqueWithoutUserInput | LoginAttemptUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LoginAttemptCreateManyUserInputEnvelope
-    set?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    disconnect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    delete?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    connect?: LoginAttemptWhereUniqueInput | LoginAttemptWhereUniqueInput[]
-    update?: LoginAttemptUpdateWithWhereUniqueWithoutUserInput | LoginAttemptUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LoginAttemptUpdateManyWithWhereWithoutUserInput | LoginAttemptUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LoginAttemptScalarWhereInput | LoginAttemptScalarWhereInput[]
+  export type RegistrationUncheckedUpdateManyWithoutHandlerNestedInput = {
+    create?: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput> | RegistrationCreateWithoutHandlerInput[] | RegistrationUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutHandlerInput | RegistrationCreateOrConnectWithoutHandlerInput[]
+    upsert?: RegistrationUpsertWithWhereUniqueWithoutHandlerInput | RegistrationUpsertWithWhereUniqueWithoutHandlerInput[]
+    createMany?: RegistrationCreateManyHandlerInputEnvelope
+    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    update?: RegistrationUpdateWithWhereUniqueWithoutHandlerInput | RegistrationUpdateWithWhereUniqueWithoutHandlerInput[]
+    updateMany?: RegistrationUpdateManyWithWhereWithoutHandlerInput | RegistrationUpdateManyWithWhereWithoutHandlerInput[]
+    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
+  }
+
+  export type RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput = {
+    create?: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput> | RegistrationCreateWithoutRegistrantInput[] | RegistrationUncheckedCreateWithoutRegistrantInput[]
+    connectOrCreate?: RegistrationCreateOrConnectWithoutRegistrantInput | RegistrationCreateOrConnectWithoutRegistrantInput[]
+    upsert?: RegistrationUpsertWithWhereUniqueWithoutRegistrantInput | RegistrationUpsertWithWhereUniqueWithoutRegistrantInput[]
+    createMany?: RegistrationCreateManyRegistrantInputEnvelope
+    set?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    disconnect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    delete?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    connect?: RegistrationWhereUniqueInput | RegistrationWhereUniqueInput[]
+    update?: RegistrationUpdateWithWhereUniqueWithoutRegistrantInput | RegistrationUpdateWithWhereUniqueWithoutRegistrantInput[]
+    updateMany?: RegistrationUpdateManyWithWhereWithoutRegistrantInput | RegistrationUpdateManyWithWhereWithoutRegistrantInput[]
+    deleteMany?: RegistrationScalarWhereInput | RegistrationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutLoginAttemptsInput = {
@@ -22260,28 +22289,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLoginAttemptsInput, UserUpdateWithoutLoginAttemptsInput>, UserUncheckedUpdateWithoutLoginAttemptsInput>
   }
 
-  export type RegistrationCreateNestedOneWithoutNotificationInput = {
-    create?: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
-    connectOrCreate?: RegistrationCreateOrConnectWithoutNotificationInput
-    connect?: RegistrationWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type EnumNotificationStatusFieldUpdateOperationsInput = {
-    set?: $Enums.NotificationStatus
-  }
-
-  export type RegistrationUpdateOneRequiredWithoutNotificationNestedInput = {
+  export type RegistrationCreateNestedOneWithoutNotificationInput = {
     create?: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
     connectOrCreate?: RegistrationCreateOrConnectWithoutNotificationInput
-    upsert?: RegistrationUpsertWithoutNotificationInput
     connect?: RegistrationWhereUniqueInput
-    update?: XOR<XOR<RegistrationUpdateToOneWithWhereWithoutNotificationInput, RegistrationUpdateWithoutNotificationInput>, RegistrationUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type EnumNotificationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.NotificationStatus
   }
 
   export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
@@ -22290,6 +22311,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutNotificationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type RegistrationUpdateOneRequiredWithoutNotificationNestedInput = {
+    create?: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
+    connectOrCreate?: RegistrationCreateOrConnectWithoutNotificationInput
+    upsert?: RegistrationUpsertWithoutNotificationInput
+    connect?: RegistrationWhereUniqueInput
+    update?: XOR<XOR<RegistrationUpdateToOneWithWhereWithoutNotificationInput, RegistrationUpdateWithoutNotificationInput>, RegistrationUncheckedUpdateWithoutNotificationInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -22694,12 +22723,13 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
     Department?: DepartmentCreateNestedOneWithoutUsersInput
     Role?: RoleCreateNestedOneWithoutUsersInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -22713,10 +22743,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    image?: string | null
     loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -22744,12 +22775,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
     Department?: DepartmentUpdateOneWithoutUsersNestedInput
     Role?: RoleUpdateOneWithoutUsersNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -22763,88 +22795,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type RegistrationCreateWithoutDepartmentInput = {
-    id?: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
-    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
-  }
-
-  export type RegistrationUncheckedCreateWithoutDepartmentInput = {
-    id?: string
-    registerId: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    registrantId?: string | null
-    handlerId?: string | null
-    status?: $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
-  }
-
-  export type RegistrationCreateOrConnectWithoutDepartmentInput = {
-    where: RegistrationWhereUniqueInput
-    create: XOR<RegistrationCreateWithoutDepartmentInput, RegistrationUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type RegistrationCreateManyDepartmentInputEnvelope = {
-    data: RegistrationCreateManyDepartmentInput | RegistrationCreateManyDepartmentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserCreateWithoutDepartmentInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutDepartmentInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    roleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutDepartmentInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type UserCreateManyDepartmentInputEnvelope = {
-    data: UserCreateManyDepartmentInput | UserCreateManyDepartmentInput[]
-    skipDuplicates?: boolean
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
   }
 
   export type RegisterCreateWithoutDepartmentInput = {
@@ -22881,6 +22836,118 @@ export namespace Prisma {
   export type RegisterCreateManyDepartmentInputEnvelope = {
     data: RegisterCreateManyDepartmentInput | RegisterCreateManyDepartmentInput[]
     skipDuplicates?: boolean
+  }
+
+  export type RegistrationCreateWithoutDepartmentInput = {
+    id?: string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
+  }
+
+  export type RegistrationUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    registerId: string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    registrantId?: string | null
+    handlerId?: string | null
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
+  }
+
+  export type RegistrationCreateOrConnectWithoutDepartmentInput = {
+    where: RegistrationWhereUniqueInput
+    create: XOR<RegistrationCreateWithoutDepartmentInput, RegistrationUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type RegistrationCreateManyDepartmentInputEnvelope = {
+    data: RegistrationCreateManyDepartmentInput | RegistrationCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutDepartmentInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
+    Role?: RoleCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    roleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
+  }
+
+  export type UserCreateOrConnectWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type UserCreateManyDepartmentInputEnvelope = {
+    data: UserCreateManyDepartmentInput | UserCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RegisterUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: RegisterWhereUniqueInput
+    update: XOR<RegisterUpdateWithoutDepartmentInput, RegisterUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type RegisterUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: RegisterWhereUniqueInput
+    data: XOR<RegisterUpdateWithoutDepartmentInput, RegisterUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type RegisterUpdateManyWithWhereWithoutDepartmentInput = {
+    where: RegisterScalarWhereInput
+    data: XOR<RegisterUpdateManyMutationInput, RegisterUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type RegisterScalarWhereInput = {
+    AND?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
+    OR?: RegisterScalarWhereInput[]
+    NOT?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
+    id?: UuidFilter<"Register"> | string
+    name?: StringFilter<"Register"> | string
+    description?: StringNullableFilter<"Register"> | string | null
+    year?: IntFilter<"Register"> | number
+    minNumber?: IntNullableFilter<"Register"> | number | null
+    maxNumber?: IntNullableFilter<"Register"> | number | null
+    departmentId?: UuidFilter<"Register"> | string
+    registerTypeId?: UuidFilter<"Register"> | string
+    createdAt?: DateTimeFilter<"Register"> | Date | string
+    updatedAt?: DateTimeFilter<"Register"> | Date | string
   }
 
   export type RegistrationUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -22943,38 +23010,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isDeleted?: BoolFilter<"User"> | boolean
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
-  }
-
-  export type RegisterUpsertWithWhereUniqueWithoutDepartmentInput = {
-    where: RegisterWhereUniqueInput
-    update: XOR<RegisterUpdateWithoutDepartmentInput, RegisterUncheckedUpdateWithoutDepartmentInput>
-    create: XOR<RegisterCreateWithoutDepartmentInput, RegisterUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type RegisterUpdateWithWhereUniqueWithoutDepartmentInput = {
-    where: RegisterWhereUniqueInput
-    data: XOR<RegisterUpdateWithoutDepartmentInput, RegisterUncheckedUpdateWithoutDepartmentInput>
-  }
-
-  export type RegisterUpdateManyWithWhereWithoutDepartmentInput = {
-    where: RegisterScalarWhereInput
-    data: XOR<RegisterUpdateManyMutationInput, RegisterUncheckedUpdateManyWithoutDepartmentInput>
-  }
-
-  export type RegisterScalarWhereInput = {
-    AND?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
-    OR?: RegisterScalarWhereInput[]
-    NOT?: RegisterScalarWhereInput | RegisterScalarWhereInput[]
-    id?: UuidFilter<"Register"> | string
-    name?: StringFilter<"Register"> | string
-    description?: StringNullableFilter<"Register"> | string | null
-    year?: IntFilter<"Register"> | number
-    minNumber?: IntNullableFilter<"Register"> | number | null
-    maxNumber?: IntNullableFilter<"Register"> | number | null
-    departmentId?: UuidFilter<"Register"> | string
-    registerTypeId?: UuidFilter<"Register"> | string
-    createdAt?: DateTimeFilter<"Register"> | Date | string
-    updatedAt?: DateTimeFilter<"Register"> | Date | string
+    image?: StringNullableFilter<"User"> | string | null
   }
 
   export type RolePermissionCreateWithoutPermissionInput = {
@@ -23025,27 +23061,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RolePermission"> | Date | string
   }
 
-  export type RoleCreateWithoutRolePermissionsInput = {
-    id?: string
-    name: string
-    color?: string
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutRoleInput
-  }
-
-  export type RoleUncheckedCreateWithoutRolePermissionsInput = {
-    id?: string
-    name: string
-    color?: string
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutRoleInput
-  }
-
-  export type RoleCreateOrConnectWithoutRolePermissionsInput = {
-    where: RoleWhereUniqueInput
-    create: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
-  }
-
   export type PermissionCreateWithoutRolePermissionsInput = {
     id?: string
     name: string
@@ -23067,31 +23082,25 @@ export namespace Prisma {
     create: XOR<PermissionCreateWithoutRolePermissionsInput, PermissionUncheckedCreateWithoutRolePermissionsInput>
   }
 
-  export type RoleUpsertWithoutRolePermissionsInput = {
-    update: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
+  export type RoleCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: string
+    color?: string
+    createdAt?: Date | string
+    users?: UserCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateWithoutRolePermissionsInput = {
+    id?: string
+    name: string
+    color?: string
+    createdAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleCreateOrConnectWithoutRolePermissionsInput = {
+    where: RoleWhereUniqueInput
     create: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
-    where?: RoleWhereInput
-  }
-
-  export type RoleUpdateToOneWithWhereWithoutRolePermissionsInput = {
-    where?: RoleWhereInput
-    data: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
-  }
-
-  export type RoleUpdateWithoutRolePermissionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    color?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutRoleNestedInput
-  }
-
-  export type RoleUncheckedUpdateWithoutRolePermissionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    color?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type PermissionUpsertWithoutRolePermissionsInput = {
@@ -23121,48 +23130,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserCreateWithoutRoleInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    Department?: DepartmentCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+  export type RoleUpsertWithoutRolePermissionsInput = {
+    update: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
+    create: XOR<RoleCreateWithoutRolePermissionsInput, RoleUncheckedCreateWithoutRolePermissionsInput>
+    where?: RoleWhereInput
   }
 
-  export type UserUncheckedCreateWithoutRoleInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    departmentId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+  export type RoleUpdateToOneWithWhereWithoutRolePermissionsInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutRolePermissionsInput, RoleUncheckedUpdateWithoutRolePermissionsInput>
   }
 
-  export type UserCreateOrConnectWithoutRoleInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput>
+  export type RoleUpdateWithoutRolePermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutRoleNestedInput
   }
 
-  export type UserCreateManyRoleInputEnvelope = {
-    data: UserCreateManyRoleInput | UserCreateManyRoleInput[]
-    skipDuplicates?: boolean
+  export type RoleUncheckedUpdateWithoutRolePermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type RolePermissionCreateWithoutRoleInput = {
@@ -23187,20 +23179,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithWhereUniqueWithoutRoleInput = {
+  export type UserCreateWithoutRoleInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
+    Department?: DepartmentCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutRoleInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    departmentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
+  }
+
+  export type UserCreateOrConnectWithoutRoleInput = {
     where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
     create: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput>
   }
 
-  export type UserUpdateWithWhereUniqueWithoutRoleInput = {
-    where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
-  }
-
-  export type UserUpdateManyWithWhereWithoutRoleInput = {
-    where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRoleInput>
+  export type UserCreateManyRoleInputEnvelope = {
+    data: UserCreateManyRoleInput | UserCreateManyRoleInput[]
+    skipDuplicates?: boolean
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -23217,6 +23239,22 @@ export namespace Prisma {
   export type RolePermissionUpdateManyWithWhereWithoutRoleInput = {
     where: RolePermissionScalarWhereInput
     data: XOR<RolePermissionUpdateManyMutationInput, RolePermissionUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutRoleInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
+    create: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutRoleInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutRoleInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRoleInput>
   }
 
   export type RegisterCreateWithoutRegisterTypeInput = {
@@ -23316,11 +23354,11 @@ export namespace Prisma {
     registrationNo?: number | null
     createdAt?: Date | string
     status?: $Enums.RecordStatus
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
     DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
     Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
   }
 
   export type RegistrationUncheckedCreateWithoutRegisterInput = {
@@ -23413,140 +23451,6 @@ export namespace Prisma {
     data: XOR<RegistrationUpdateManyMutationInput, RegistrationUncheckedUpdateManyWithoutRegisterInput>
   }
 
-  export type RegisterCreateWithoutRecordsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    year: number
-    minNumber?: number | null
-    maxNumber?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Department: DepartmentCreateNestedOneWithoutRegisterInput
-    RegisterType: RegisterTypeCreateNestedOneWithoutRegistersInput
-  }
-
-  export type RegisterUncheckedCreateWithoutRecordsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    year: number
-    minNumber?: number | null
-    maxNumber?: number | null
-    departmentId: string
-    registerTypeId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type RegisterCreateOrConnectWithoutRecordsInput = {
-    where: RegisterWhereUniqueInput
-    create: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
-  }
-
-  export type DepartmentCreateWithoutRegistrationRecordsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    users?: UserCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentUncheckedCreateWithoutRegistrationRecordsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentCreateOrConnectWithoutRegistrationRecordsInput = {
-    where: DepartmentWhereUniqueInput
-    create: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
-  }
-
-  export type UserCreateWithoutRegisteredRecordsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    Department?: DepartmentCreateNestedOneWithoutUsersInput
-    Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutRegisteredRecordsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    departmentId?: string | null
-    roleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutRegisteredRecordsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
-  }
-
-  export type UserCreateWithoutHandledRecordsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    Department?: DepartmentCreateNestedOneWithoutUsersInput
-    Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutHandledRecordsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    departmentId?: string | null
-    roleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
-    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutHandledRecordsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
-  }
-
   export type DocumentCreateWithoutRegistrationInput = {
     id?: string
     fileUrl: string
@@ -23609,162 +23513,142 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RegisterUpsertWithoutRecordsInput = {
-    update: XOR<RegisterUpdateWithoutRecordsInput, RegisterUncheckedUpdateWithoutRecordsInput>
-    create: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
-    where?: RegisterWhereInput
+  export type DepartmentCreateWithoutRegistrationRecordsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Register?: RegisterCreateNestedManyWithoutDepartmentInput
+    users?: UserCreateNestedManyWithoutDepartmentInput
   }
 
-  export type RegisterUpdateToOneWithWhereWithoutRecordsInput = {
-    where?: RegisterWhereInput
-    data: XOR<RegisterUpdateWithoutRecordsInput, RegisterUncheckedUpdateWithoutRecordsInput>
+  export type DepartmentUncheckedCreateWithoutRegistrationRecordsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
-  export type RegisterUpdateWithoutRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    year?: IntFieldUpdateOperationsInput | number
-    minNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    maxNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Department?: DepartmentUpdateOneRequiredWithoutRegisterNestedInput
-    RegisterType?: RegisterTypeUpdateOneRequiredWithoutRegistersNestedInput
-  }
-
-  export type RegisterUncheckedUpdateWithoutRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    year?: IntFieldUpdateOperationsInput | number
-    minNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    maxNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    departmentId?: StringFieldUpdateOperationsInput | string
-    registerTypeId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DepartmentUpsertWithoutRegistrationRecordsInput = {
-    update: XOR<DepartmentUpdateWithoutRegistrationRecordsInput, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
+  export type DepartmentCreateOrConnectWithoutRegistrationRecordsInput = {
+    where: DepartmentWhereUniqueInput
     create: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
-    where?: DepartmentWhereInput
   }
 
-  export type DepartmentUpdateToOneWithWhereWithoutRegistrationRecordsInput = {
-    where?: DepartmentWhereInput
-    data: XOR<DepartmentUpdateWithoutRegistrationRecordsInput, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
+  export type UserCreateWithoutHandledRecordsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
+    Department?: DepartmentCreateNestedOneWithoutUsersInput
+    Role?: RoleCreateNestedOneWithoutUsersInput
   }
 
-  export type DepartmentUpdateWithoutRegistrationRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
+  export type UserUncheckedCreateWithoutHandledRecordsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    departmentId?: string | null
+    roleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
   }
 
-  export type DepartmentUncheckedUpdateWithoutRegistrationRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
-  }
-
-  export type UserUpsertWithoutRegisteredRecordsInput = {
-    update: XOR<UserUpdateWithoutRegisteredRecordsInput, UserUncheckedUpdateWithoutRegisteredRecordsInput>
-    create: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutRegisteredRecordsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutRegisteredRecordsInput, UserUncheckedUpdateWithoutRegisteredRecordsInput>
-  }
-
-  export type UserUpdateWithoutRegisteredRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Department?: DepartmentUpdateOneWithoutUsersNestedInput
-    Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutRegisteredRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    roleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUpsertWithoutHandledRecordsInput = {
-    update: XOR<UserUpdateWithoutHandledRecordsInput, UserUncheckedUpdateWithoutHandledRecordsInput>
+  export type UserCreateOrConnectWithoutHandledRecordsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
-    where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutHandledRecordsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutHandledRecordsInput, UserUncheckedUpdateWithoutHandledRecordsInput>
+  export type RegisterCreateWithoutRecordsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    year: number
+    minNumber?: number | null
+    maxNumber?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Department: DepartmentCreateNestedOneWithoutRegisterInput
+    RegisterType: RegisterTypeCreateNestedOneWithoutRegistersInput
   }
 
-  export type UserUpdateWithoutHandledRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Department?: DepartmentUpdateOneWithoutUsersNestedInput
-    Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+  export type RegisterUncheckedCreateWithoutRecordsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    year: number
+    minNumber?: number | null
+    maxNumber?: number | null
+    departmentId: string
+    registerTypeId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type UserUncheckedUpdateWithoutHandledRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    roleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+  export type RegisterCreateOrConnectWithoutRecordsInput = {
+    where: RegisterWhereUniqueInput
+    create: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
+  }
+
+  export type UserCreateWithoutRegisteredRecordsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    Department?: DepartmentCreateNestedOneWithoutUsersInput
+    Role?: RoleCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutRegisteredRecordsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    departmentId?: string | null
+    roleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+  }
+
+  export type UserCreateOrConnectWithoutRegisteredRecordsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
   }
 
   export type DocumentUpsertWithWhereUniqueWithoutRegistrationInput = {
@@ -23828,16 +23712,178 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
+  export type DepartmentUpsertWithoutRegistrationRecordsInput = {
+    update: XOR<DepartmentUpdateWithoutRegistrationRecordsInput, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
+    create: XOR<DepartmentCreateWithoutRegistrationRecordsInput, DepartmentUncheckedCreateWithoutRegistrationRecordsInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutRegistrationRecordsInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutRegistrationRecordsInput, DepartmentUncheckedUpdateWithoutRegistrationRecordsInput>
+  }
+
+  export type DepartmentUpdateWithoutRegistrationRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
+    users?: UserUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutRegistrationRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type UserUpsertWithoutHandledRecordsInput = {
+    update: XOR<UserUpdateWithoutHandledRecordsInput, UserUncheckedUpdateWithoutHandledRecordsInput>
+    create: XOR<UserCreateWithoutHandledRecordsInput, UserUncheckedCreateWithoutHandledRecordsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHandledRecordsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHandledRecordsInput, UserUncheckedUpdateWithoutHandledRecordsInput>
+  }
+
+  export type UserUpdateWithoutHandledRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
+    Department?: DepartmentUpdateOneWithoutUsersNestedInput
+    Role?: RoleUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHandledRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
+  }
+
+  export type RegisterUpsertWithoutRecordsInput = {
+    update: XOR<RegisterUpdateWithoutRecordsInput, RegisterUncheckedUpdateWithoutRecordsInput>
+    create: XOR<RegisterCreateWithoutRecordsInput, RegisterUncheckedCreateWithoutRecordsInput>
+    where?: RegisterWhereInput
+  }
+
+  export type RegisterUpdateToOneWithWhereWithoutRecordsInput = {
+    where?: RegisterWhereInput
+    data: XOR<RegisterUpdateWithoutRecordsInput, RegisterUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type RegisterUpdateWithoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: IntFieldUpdateOperationsInput | number
+    minNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Department?: DepartmentUpdateOneRequiredWithoutRegisterNestedInput
+    RegisterType?: RegisterTypeUpdateOneRequiredWithoutRegistersNestedInput
+  }
+
+  export type RegisterUncheckedUpdateWithoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: IntFieldUpdateOperationsInput | number
+    minNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    maxNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    departmentId?: StringFieldUpdateOperationsInput | string
+    registerTypeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutRegisteredRecordsInput = {
+    update: XOR<UserUpdateWithoutRegisteredRecordsInput, UserUncheckedUpdateWithoutRegisteredRecordsInput>
+    create: XOR<UserCreateWithoutRegisteredRecordsInput, UserUncheckedCreateWithoutRegisteredRecordsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRegisteredRecordsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRegisteredRecordsInput, UserUncheckedUpdateWithoutRegisteredRecordsInput>
+  }
+
+  export type UserUpdateWithoutRegisteredRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    Department?: DepartmentUpdateOneWithoutUsersNestedInput
+    Role?: RoleUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRegisteredRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+  }
+
   export type RegistrationCreateWithoutDocumentMetadataInput = {
     id?: string
     registrationNo?: number | null
     createdAt?: Date | string
     status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
     Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
   }
 
   export type RegistrationUncheckedCreateWithoutDocumentMetadataInput = {
@@ -23873,11 +23919,11 @@ export namespace Prisma {
     registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
     Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
   }
 
   export type RegistrationUncheckedUpdateWithoutDocumentMetadataInput = {
@@ -23890,52 +23936,6 @@ export namespace Prisma {
     handlerId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
     Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type DepartmentCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    registrationRecords?: RegistrationCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentUncheckedCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    registrationRecords?: RegistrationUncheckedCreateNestedManyWithoutDepartmentInput
-    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentCreateOrConnectWithoutUsersInput = {
-    where: DepartmentWhereUniqueInput
-    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
-  }
-
-  export type RoleCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    color?: string
-    createdAt?: Date | string
-    rolePermissions?: RolePermissionCreateNestedManyWithoutRoleInput
-  }
-
-  export type RoleUncheckedCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    color?: string
-    createdAt?: Date | string
-    rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutRoleInput
-  }
-
-  export type RoleCreateOrConnectWithoutUsersInput = {
-    where: RoleWhereUniqueInput
-    create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
   }
 
   export type AuditLogCreateWithoutUserInput = {
@@ -23976,71 +23976,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RegistrationCreateWithoutRegistrantInput = {
+  export type LoginAttemptCreateWithoutUserInput = {
     id?: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
-    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    email?: string | null
+    ipAddress: string
+    success: boolean
+    timestamp?: Date | string
   }
 
-  export type RegistrationUncheckedCreateWithoutRegistrantInput = {
+  export type LoginAttemptUncheckedCreateWithoutUserInput = {
     id?: string
-    registerId: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    departmentId?: string | null
-    handlerId?: string | null
-    status?: $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
+    email?: string | null
+    ipAddress: string
+    success: boolean
+    timestamp?: Date | string
   }
 
-  export type RegistrationCreateOrConnectWithoutRegistrantInput = {
-    where: RegistrationWhereUniqueInput
-    create: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput>
+  export type LoginAttemptCreateOrConnectWithoutUserInput = {
+    where: LoginAttemptWhereUniqueInput
+    create: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput>
   }
 
-  export type RegistrationCreateManyRegistrantInputEnvelope = {
-    data: RegistrationCreateManyRegistrantInput | RegistrationCreateManyRegistrantInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type RegistrationCreateWithoutHandlerInput = {
-    id?: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
-  }
-
-  export type RegistrationUncheckedCreateWithoutHandlerInput = {
-    id?: string
-    registerId: string
-    registrationNo?: number | null
-    createdAt?: Date | string
-    departmentId?: string | null
-    registrantId?: string | null
-    status?: $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
-    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
-  }
-
-  export type RegistrationCreateOrConnectWithoutHandlerInput = {
-    where: RegistrationWhereUniqueInput
-    create: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput>
-  }
-
-  export type RegistrationCreateManyHandlerInputEnvelope = {
-    data: RegistrationCreateManyHandlerInput | RegistrationCreateManyHandlerInput[]
+  export type LoginAttemptCreateManyUserInputEnvelope = {
+    data: LoginAttemptCreateManyUserInput | LoginAttemptCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -24072,88 +24030,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type LoginAttemptCreateWithoutUserInput = {
+  export type RegistrationCreateWithoutHandlerInput = {
     id?: string
-    email?: string | null
-    ipAddress: string
-    success: boolean
-    timestamp?: Date | string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
   }
 
-  export type LoginAttemptUncheckedCreateWithoutUserInput = {
+  export type RegistrationUncheckedCreateWithoutHandlerInput = {
     id?: string
-    email?: string | null
-    ipAddress: string
-    success: boolean
-    timestamp?: Date | string
+    registerId: string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    departmentId?: string | null
+    registrantId?: string | null
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
   }
 
-  export type LoginAttemptCreateOrConnectWithoutUserInput = {
-    where: LoginAttemptWhereUniqueInput
-    create: XOR<LoginAttemptCreateWithoutUserInput, LoginAttemptUncheckedCreateWithoutUserInput>
+  export type RegistrationCreateOrConnectWithoutHandlerInput = {
+    where: RegistrationWhereUniqueInput
+    create: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput>
   }
 
-  export type LoginAttemptCreateManyUserInputEnvelope = {
-    data: LoginAttemptCreateManyUserInput | LoginAttemptCreateManyUserInput[]
+  export type RegistrationCreateManyHandlerInputEnvelope = {
+    data: RegistrationCreateManyHandlerInput | RegistrationCreateManyHandlerInput[]
     skipDuplicates?: boolean
   }
 
-  export type DepartmentUpsertWithoutUsersInput = {
-    update: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+  export type RegistrationCreateWithoutRegistrantInput = {
+    id?: string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+  }
+
+  export type RegistrationUncheckedCreateWithoutRegistrantInput = {
+    id?: string
+    registerId: string
+    registrationNo?: number | null
+    createdAt?: Date | string
+    departmentId?: string | null
+    handlerId?: string | null
+    status?: $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedCreateNestedManyWithoutRegistrationInput
+    Notification?: NotificationUncheckedCreateNestedManyWithoutRegistrationInput
+  }
+
+  export type RegistrationCreateOrConnectWithoutRegistrantInput = {
+    where: RegistrationWhereUniqueInput
+    create: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput>
+  }
+
+  export type RegistrationCreateManyRegistrantInputEnvelope = {
+    data: RegistrationCreateManyRegistrantInput | RegistrationCreateManyRegistrantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartmentCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Register?: RegisterCreateNestedManyWithoutDepartmentInput
+    registrationRecords?: RegistrationCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Register?: RegisterUncheckedCreateNestedManyWithoutDepartmentInput
+    registrationRecords?: RegistrationUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutUsersInput = {
+    where: DepartmentWhereUniqueInput
     create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
-    where?: DepartmentWhereInput
   }
 
-  export type DepartmentUpdateToOneWithWhereWithoutUsersInput = {
-    where?: DepartmentWhereInput
-    data: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+  export type RoleCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    color?: string
+    createdAt?: Date | string
+    rolePermissions?: RolePermissionCreateNestedManyWithoutRoleInput
   }
 
-  export type DepartmentUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    registrationRecords?: RegistrationUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
+  export type RoleUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    color?: string
+    createdAt?: Date | string
+    rolePermissions?: RolePermissionUncheckedCreateNestedManyWithoutRoleInput
   }
 
-  export type DepartmentUncheckedUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    registrationRecords?: RegistrationUncheckedUpdateManyWithoutDepartmentNestedInput
-    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
-  }
-
-  export type RoleUpsertWithoutUsersInput = {
-    update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
+  export type RoleCreateOrConnectWithoutUsersInput = {
+    where: RoleWhereUniqueInput
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
-    where?: RoleWhereInput
-  }
-
-  export type RoleUpdateToOneWithWhereWithoutUsersInput = {
-    where?: RoleWhereInput
-    data: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type RoleUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    color?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rolePermissions?: RolePermissionUpdateManyWithoutRoleNestedInput
-  }
-
-  export type RoleUncheckedUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    color?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rolePermissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type AuditLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -24190,54 +24178,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
-  export type RegistrationUpsertWithWhereUniqueWithoutRegistrantInput = {
-    where: RegistrationWhereUniqueInput
-    update: XOR<RegistrationUpdateWithoutRegistrantInput, RegistrationUncheckedUpdateWithoutRegistrantInput>
-    create: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput>
-  }
-
-  export type RegistrationUpdateWithWhereUniqueWithoutRegistrantInput = {
-    where: RegistrationWhereUniqueInput
-    data: XOR<RegistrationUpdateWithoutRegistrantInput, RegistrationUncheckedUpdateWithoutRegistrantInput>
-  }
-
-  export type RegistrationUpdateManyWithWhereWithoutRegistrantInput = {
-    where: RegistrationScalarWhereInput
-    data: XOR<RegistrationUpdateManyMutationInput, RegistrationUncheckedUpdateManyWithoutRegistrantInput>
-  }
-
-  export type RegistrationUpsertWithWhereUniqueWithoutHandlerInput = {
-    where: RegistrationWhereUniqueInput
-    update: XOR<RegistrationUpdateWithoutHandlerInput, RegistrationUncheckedUpdateWithoutHandlerInput>
-    create: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput>
-  }
-
-  export type RegistrationUpdateWithWhereUniqueWithoutHandlerInput = {
-    where: RegistrationWhereUniqueInput
-    data: XOR<RegistrationUpdateWithoutHandlerInput, RegistrationUncheckedUpdateWithoutHandlerInput>
-  }
-
-  export type RegistrationUpdateManyWithWhereWithoutHandlerInput = {
-    where: RegistrationScalarWhereInput
-    data: XOR<RegistrationUpdateManyMutationInput, RegistrationUncheckedUpdateManyWithoutHandlerInput>
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutRecipientInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
-    create: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutRecipientInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutRecipientInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutRecipientInput>
-  }
-
   export type LoginAttemptUpsertWithWhereUniqueWithoutUserInput = {
     where: LoginAttemptWhereUniqueInput
     update: XOR<LoginAttemptUpdateWithoutUserInput, LoginAttemptUncheckedUpdateWithoutUserInput>
@@ -24266,6 +24206,112 @@ export namespace Prisma {
     timestamp?: DateTimeFilter<"LoginAttempt"> | Date | string
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
+    create: XOR<NotificationCreateWithoutRecipientInput, NotificationUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutRecipientInput, NotificationUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutRecipientInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutRecipientInput>
+  }
+
+  export type RegistrationUpsertWithWhereUniqueWithoutHandlerInput = {
+    where: RegistrationWhereUniqueInput
+    update: XOR<RegistrationUpdateWithoutHandlerInput, RegistrationUncheckedUpdateWithoutHandlerInput>
+    create: XOR<RegistrationCreateWithoutHandlerInput, RegistrationUncheckedCreateWithoutHandlerInput>
+  }
+
+  export type RegistrationUpdateWithWhereUniqueWithoutHandlerInput = {
+    where: RegistrationWhereUniqueInput
+    data: XOR<RegistrationUpdateWithoutHandlerInput, RegistrationUncheckedUpdateWithoutHandlerInput>
+  }
+
+  export type RegistrationUpdateManyWithWhereWithoutHandlerInput = {
+    where: RegistrationScalarWhereInput
+    data: XOR<RegistrationUpdateManyMutationInput, RegistrationUncheckedUpdateManyWithoutHandlerInput>
+  }
+
+  export type RegistrationUpsertWithWhereUniqueWithoutRegistrantInput = {
+    where: RegistrationWhereUniqueInput
+    update: XOR<RegistrationUpdateWithoutRegistrantInput, RegistrationUncheckedUpdateWithoutRegistrantInput>
+    create: XOR<RegistrationCreateWithoutRegistrantInput, RegistrationUncheckedCreateWithoutRegistrantInput>
+  }
+
+  export type RegistrationUpdateWithWhereUniqueWithoutRegistrantInput = {
+    where: RegistrationWhereUniqueInput
+    data: XOR<RegistrationUpdateWithoutRegistrantInput, RegistrationUncheckedUpdateWithoutRegistrantInput>
+  }
+
+  export type RegistrationUpdateManyWithWhereWithoutRegistrantInput = {
+    where: RegistrationScalarWhereInput
+    data: XOR<RegistrationUpdateManyMutationInput, RegistrationUncheckedUpdateManyWithoutRegistrantInput>
+  }
+
+  export type DepartmentUpsertWithoutUsersInput = {
+    update: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutUsersInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type DepartmentUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUpdateManyWithoutDepartmentNestedInput
+    registrationRecords?: RegistrationUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Register?: RegisterUncheckedUpdateManyWithoutDepartmentNestedInput
+    registrationRecords?: RegistrationUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type RoleUpsertWithoutUsersInput = {
+    update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
+    create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutUsersInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type RoleUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rolePermissions?: RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
   export type UserCreateWithoutLoginAttemptsInput = {
     id?: string
     email: string
@@ -24275,12 +24321,13 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
     Department?: DepartmentCreateNestedOneWithoutUsersInput
     Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    notifications?: NotificationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutLoginAttemptsInput = {
@@ -24294,10 +24341,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
+    image?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
   }
 
   export type UserCreateOrConnectWithoutLoginAttemptsInput = {
@@ -24325,12 +24373,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
     Department?: DepartmentUpdateOneWithoutUsersNestedInput
     Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLoginAttemptsInput = {
@@ -24344,10 +24393,52 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
+    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
+    Department?: DepartmentCreateNestedOneWithoutUsersInput
+    Role?: RoleCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    departmentId?: string | null
+    roleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    image?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
+    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
+    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
   }
 
   export type RegistrationCreateWithoutNotificationInput = {
@@ -24355,11 +24446,11 @@ export namespace Prisma {
     registrationNo?: number | null
     createdAt?: Date | string
     status?: $Enums.RecordStatus
-    Register: RegisterCreateNestedOneWithoutRecordsInput
-    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
-    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
-    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
     DocumentMetadata?: DocumentCreateNestedManyWithoutRegistrationInput
+    Department?: DepartmentCreateNestedOneWithoutRegistrationRecordsInput
+    Handler?: UserCreateNestedOneWithoutHandledRecordsInput
+    Register: RegisterCreateNestedOneWithoutRecordsInput
+    Registrant?: UserCreateNestedOneWithoutRegisteredRecordsInput
   }
 
   export type RegistrationUncheckedCreateWithoutNotificationInput = {
@@ -24377,80 +24468,6 @@ export namespace Prisma {
   export type RegistrationCreateOrConnectWithoutNotificationInput = {
     where: RegistrationWhereUniqueInput
     create: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
-  }
-
-  export type UserCreateWithoutNotificationsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    Department?: DepartmentCreateNestedOneWithoutUsersInput
-    Role?: RoleCreateNestedOneWithoutUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationCreateNestedManyWithoutHandlerInput
-    loginAttempts?: LoginAttemptCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutNotificationsInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    departmentId?: string | null
-    roleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isDeleted?: boolean
-    deletedAt?: Date | string | null
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    RegisteredRecords?: RegistrationUncheckedCreateNestedManyWithoutRegistrantInput
-    HandledRecords?: RegistrationUncheckedCreateNestedManyWithoutHandlerInput
-    loginAttempts?: LoginAttemptUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutNotificationsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
-  }
-
-  export type RegistrationUpsertWithoutNotificationInput = {
-    update: XOR<RegistrationUpdateWithoutNotificationInput, RegistrationUncheckedUpdateWithoutNotificationInput>
-    create: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
-    where?: RegistrationWhereInput
-  }
-
-  export type RegistrationUpdateToOneWithWhereWithoutNotificationInput = {
-    where?: RegistrationWhereInput
-    data: XOR<RegistrationUpdateWithoutNotificationInput, RegistrationUncheckedUpdateWithoutNotificationInput>
-  }
-
-  export type RegistrationUpdateWithoutNotificationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
-    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type RegistrationUncheckedUpdateWithoutNotificationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
-    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -24473,12 +24490,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
     Department?: DepartmentUpdateOneWithoutUsersNestedInput
     Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -24492,10 +24510,58 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
     loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
+  }
+
+  export type RegistrationUpsertWithoutNotificationInput = {
+    update: XOR<RegistrationUpdateWithoutNotificationInput, RegistrationUncheckedUpdateWithoutNotificationInput>
+    create: XOR<RegistrationCreateWithoutNotificationInput, RegistrationUncheckedCreateWithoutNotificationInput>
+    where?: RegistrationWhereInput
+  }
+
+  export type RegistrationUpdateToOneWithWhereWithoutNotificationInput = {
+    where?: RegistrationWhereInput
+    data: XOR<RegistrationUpdateWithoutNotificationInput, RegistrationUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type RegistrationUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
+  }
+
+  export type RegistrationUncheckedUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
+  }
+
+  export type RegisterCreateManyDepartmentInput = {
+    id?: string
+    name: string
+    description?: string | null
+    year: number
+    minNumber?: number | null
+    maxNumber?: number | null
+    registerTypeId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type RegistrationCreateManyDepartmentInput = {
@@ -24518,98 +24584,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
-  }
-
-  export type RegisterCreateManyDepartmentInput = {
-    id?: string
-    name: string
-    description?: string | null
-    year: number
-    minNumber?: number | null
-    maxNumber?: number | null
-    registerTypeId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type RegistrationUpdateWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
-    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type RegistrationUncheckedUpdateWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
-    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type RegistrationUncheckedUpdateManyWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
-    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-  }
-
-  export type UserUpdateWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Role?: RoleUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    roleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateManyWithoutDepartmentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    roleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: string | null
   }
 
   export type RegisterUpdateWithoutDepartmentInput = {
@@ -24650,6 +24625,89 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RegistrationUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
+  }
+
+  export type RegistrationUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
+  }
+
+  export type RegistrationUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+  }
+
+  export type UserUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
+    Role?: RoleUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type RolePermissionCreateManyPermissionInput = {
     id?: string
     roleId: string
@@ -24674,6 +24732,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RolePermissionCreateManyRoleInput = {
+    id?: string
+    permissionId: string
+    createdAt?: Date | string
+  }
+
   export type UserCreateManyRoleInput = {
     id?: string
     email: string
@@ -24684,58 +24748,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     isDeleted?: boolean
     deletedAt?: Date | string | null
-  }
-
-  export type RolePermissionCreateManyRoleInput = {
-    id?: string
-    permissionId: string
-    createdAt?: Date | string
-  }
-
-  export type UserUpdateWithoutRoleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Department?: DepartmentUpdateOneWithoutUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutRoleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
-    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
-    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateManyWithoutRoleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: string | null
   }
 
   export type RolePermissionUpdateWithoutRoleInput = {
@@ -24754,6 +24767,55 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     permissionId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUpdateManyWithoutRegistrantNestedInput
+    Department?: DepartmentUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    loginAttempts?: LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+    HandledRecords?: RegistrationUncheckedUpdateManyWithoutHandlerNestedInput
+    RegisteredRecords?: RegistrationUncheckedUpdateManyWithoutRegistrantNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RegisterCreateManyRegisterTypeInput = {
@@ -24821,11 +24883,11 @@ export namespace Prisma {
     registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
     DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
     Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
   }
 
   export type RegistrationUncheckedUpdateWithoutRegisterInput = {
@@ -24948,14 +25010,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type RegistrationCreateManyRegistrantInput = {
+  export type LoginAttemptCreateManyUserInput = {
     id?: string
-    registerId: string
-    registrationNo?: number | null
+    email?: string | null
+    ipAddress: string
+    success: boolean
+    timestamp?: Date | string
+  }
+
+  export type NotificationCreateManyRecipientInput = {
+    id?: string
+    registrationId: string
+    message: string
+    status?: $Enums.NotificationStatus
+    isRead?: boolean
     createdAt?: Date | string
-    departmentId?: string | null
-    handlerId?: string | null
-    status?: $Enums.RecordStatus
   }
 
   export type RegistrationCreateManyHandlerInput = {
@@ -24968,21 +25037,14 @@ export namespace Prisma {
     status?: $Enums.RecordStatus
   }
 
-  export type NotificationCreateManyRecipientInput = {
+  export type RegistrationCreateManyRegistrantInput = {
     id?: string
-    registrationId: string
-    message: string
-    status?: $Enums.NotificationStatus
-    isRead?: boolean
+    registerId: string
+    registrationNo?: number | null
     createdAt?: Date | string
-  }
-
-  export type LoginAttemptCreateManyUserInput = {
-    id?: string
-    email?: string | null
-    ipAddress: string
-    success: boolean
-    timestamp?: Date | string
+    departmentId?: string | null
+    handlerId?: string | null
+    status?: $Enums.RecordStatus
   }
 
   export type AuditLogUpdateWithoutUserInput = {
@@ -25027,72 +25089,28 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RegistrationUpdateWithoutRegistrantInput = {
+  export type LoginAttemptUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
-    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    success?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RegistrationUncheckedUpdateWithoutRegistrantInput = {
+  export type LoginAttemptUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    success?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RegistrationUncheckedUpdateManyWithoutRegistrantInput = {
+  export type LoginAttemptUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-  }
-
-  export type RegistrationUpdateWithoutHandlerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
-    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
-    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
-    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type RegistrationUncheckedUpdateWithoutHandlerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
-    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
-    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
-  }
-
-  export type RegistrationUncheckedUpdateManyWithoutHandlerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    registerId?: StringFieldUpdateOperationsInput | string
-    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    success?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpdateWithoutRecipientInput = {
@@ -25122,28 +25140,72 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type LoginAttemptUpdateWithoutUserInput = {
+  export type RegistrationUpdateWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: StringFieldUpdateOperationsInput | string
-    success?: BoolFieldUpdateOperationsInput | boolean
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+    Registrant?: UserUpdateOneWithoutRegisteredRecordsNestedInput
   }
 
-  export type LoginAttemptUncheckedUpdateWithoutUserInput = {
+  export type RegistrationUncheckedUpdateWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: StringFieldUpdateOperationsInput | string
-    success?: BoolFieldUpdateOperationsInput | boolean
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
   }
 
-  export type LoginAttemptUncheckedUpdateManyWithoutUserInput = {
+  export type RegistrationUncheckedUpdateManyWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: StringFieldUpdateOperationsInput | string
-    success?: BoolFieldUpdateOperationsInput | boolean
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    registrantId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+  }
+
+  export type RegistrationUpdateWithoutRegistrantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUpdateManyWithoutRegistrationNestedInput
+    Department?: DepartmentUpdateOneWithoutRegistrationRecordsNestedInput
+    Handler?: UserUpdateOneWithoutHandledRecordsNestedInput
+    Register?: RegisterUpdateOneRequiredWithoutRecordsNestedInput
+  }
+
+  export type RegistrationUncheckedUpdateWithoutRegistrantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+    DocumentMetadata?: DocumentUncheckedUpdateManyWithoutRegistrationNestedInput
+    Notification?: NotificationUncheckedUpdateManyWithoutRegistrationNestedInput
+  }
+
+  export type RegistrationUncheckedUpdateManyWithoutRegistrantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registerId?: StringFieldUpdateOperationsInput | string
+    registrationNo?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   }
 
 

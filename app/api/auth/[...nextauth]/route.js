@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
+import { db } from "@/lib/drizzle";
 import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient();
+import { users } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 
 export const authOptions = {
   providers: [
@@ -14,21 +14,16 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-          include: { Role: true }, // Include și rolul
-        });
-
+        const result = await db.select().from(users).where(eq(users.email, credentials.email));
+        const user = result[0];
         if (!user || user.isDeleted) return null;
-
         const isValid = await bcrypt.compare(credentials.password, user.passwordHash);
         if (!isValid) return null;
-
         return {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.Role?.name || null,
+          role: null,
           departmentId: user.departmentId,
         };
       },
