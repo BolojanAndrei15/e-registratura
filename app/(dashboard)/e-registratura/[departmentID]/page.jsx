@@ -1,7 +1,7 @@
 import SectionRegistre from "@/components/section-registre";
 
-export default function Page() {
+export default function Page({ params }) {
     return (
-        <SectionRegistre/>
+        <SectionRegistre departmentId={params.departmentID} />
     );
 }

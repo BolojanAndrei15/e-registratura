@@ -17,6 +17,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink } from "@/components/ui/pagination";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRouter } from "next/navigation";
 
 import AddDepartmentModal from "./add-department-modal";
 import EditDepartmentModal from "./edit-department-modal";
@@ -36,6 +37,7 @@ function DepartmentCard({ name, description, lastEdited, avatars, registerNumber
   const maxAvatars = isMobile ? 3 : 5;
   const avatarsToShow = avatars ? avatars.slice(0, maxAvatars) : [];
   const hasMore = avatars && avatars.length > maxAvatars;
+  const router = useRouter();
 
   return (
     <Card className="relative border rounded-xl bg-card p-4  min-h-[120px] flex flex-col justify-between">
@@ -92,7 +94,7 @@ function DepartmentCard({ name, description, lastEdited, avatars, registerNumber
             )}
           </TooltipProvider>
         </div>
-        <Button variant="link" className="text-xs px-0">Vezi registre &rarr;</Button>
+        <Button variant="link" className="text-xs px-0" onClick={() => router.push(`/e-registratura/${id}`)}>Vezi registre &rarr;</Button>
       </div>
     </Card>
   );
