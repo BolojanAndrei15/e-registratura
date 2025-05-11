@@ -12,6 +12,7 @@ import axios from "axios";
 import AddRegistryModal from "./add-registry-modal";
 import EditRegistryModal from "./edit-registry-modal";
 import DeleteRegistryModal from "./delete-registry-modal";
+import { useRouter } from "next/navigation";
 
 export default function SectionRegistre({ departmentId }) {
   const [search, setSearch] = useState("");
@@ -25,6 +26,7 @@ export default function SectionRegistre({ departmentId }) {
   const perPage = isMobile ? 6 : 14;
   const [page, setPage] = useState(1);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   useEffect(() => {
     if (modalOpen) {
@@ -92,7 +94,13 @@ export default function SectionRegistre({ departmentId }) {
               </TableHeader>
               <TableBody>
                 {paginatedRegisters.map((reg) => (
-                  <TableRow key={reg.id} className="bg-card">
+                  <TableRow key={reg.id} className="bg-card" style={{ cursor: 'pointer' }}
+                    onClick={e => {
+                      // evită trigger pe click pe butoane
+                      if (e.target.closest('button')) return;
+                      router.push(`/e-registratura/${departmentId}/${reg.id}`);
+                    }}
+                  >
                     <TableCell className="flex items-center gap-2 font-medium text-base text-primary ">
                       <FileText className="text-primary w-5 h-5 shrink-0" />
                       <span className="truncate">{reg.name}</span>
@@ -109,7 +117,12 @@ export default function SectionRegistre({ departmentId }) {
                       </Badge>
                     </TableCell>
                     <TableCell className="flex items-center justify-center gap-2 text-primary text-lg border-b border-border last:border-b-0">
-                      <Button variant="ghost" size="icon" title="Vezi" className="text-primary hover:bg-primary/10">
+                      <Button variant="ghost" size="icon" title="Vezi" className="text-primary hover:bg-primary/10"
+                        onClick={e => {
+                          e.stopPropagation();
+                          router.push(`/e-registratura/${departmentId}/${reg.id}`);
+                        }}
+                      >
                         <Eye className="w-5 h-5" />
                       </Button>
                       <Button

@@ -127,146 +127,44 @@ function DragHandle({
 
 const columns = [
   {
-    id: "drag",
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all" />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row" />
-      </div>
-    ),
-    enableSorting: false,
+    accessorKey: "nr",
+    header: "Nr.",
+    cell: ({ row }) => row.index + 1,
     enableHiding: false,
   },
   {
-    accessorKey: "header",
-    header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />;
-    },
-    enableHiding: false,
+    accessorKey: "data",
+    header: "Data",
+    cell: ({ row }) => row.original.data || "-",
   },
   {
-    accessorKey: "type",
-    header: "Section Type",
-    cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="text-muted-foreground px-1.5">
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
+    accessorKey: "tipDocument",
+    header: "Tip document",
+    cell: ({ row }) => row.original.tipDocument || "-",
+  },
+  {
+    accessorKey: "expeditor",
+    header: "Expeditor",
+    cell: ({ row }) => row.original.expeditor || "-",
+  },
+  {
+    accessorKey: "destinatar",
+    header: "Destinatar",
+    cell: ({ row }) => row.original.destinatar || "-",
+  },
+  {
+    accessorKey: "rezumat",
+    header: "Rezumat",
+    cell: ({ row }) => row.original.rezumat || "-",
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.status === "Done" ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-        ) : (
-          <IconLoader />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: "target",
-    header: () => <div className="w-full text-right">Target</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}>
-        <Label htmlFor={`${row.original.id}-target`} className="sr-only">
-          Target
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`} />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "limit",
-    header: () => <div className="w-full text-right">Limit</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}>
-        <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
-          Limit
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`} />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "reviewer",
-    header: "Reviewer",
-    cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer"
-
-      if (isAssigned) {
-        return row.original.reviewer
-      }
-
-      return (<>
-        <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
-          Reviewer
-        </Label>
-        <Select>
-          <SelectTrigger
-            className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-            size="sm"
-            id={`${row.original.id}-reviewer`}>
-            <SelectValue placeholder="Assign reviewer" />
-          </SelectTrigger>
-          <SelectContent align="end">
-            <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-            <SelectItem value="Jamik Tashpulatov">
-              Jamik Tashpulatov
-            </SelectItem>
-          </SelectContent>
-        </Select>
-      </>);
-    },
+    cell: ({ row }) => row.original.status || "-",
   },
   {
     id: "actions",
+    header: "Acțiuni",
     cell: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -405,10 +303,10 @@ export function DataTable({
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" >
                 <IconLayoutColumns />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
+                <span className="hidden lg:inline">Costumizează coloanele</span>
+                <span className="lg:hidden">Coloane</span>
                 <IconChevronDown />
               </Button>
             </DropdownMenuTrigger>
@@ -433,9 +331,9 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="outline" size="sm">
+          <Button variant="" >
             <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
+            <span className="hidden lg:inline">Adaugă Înregistrare</span>
           </Button>
         </div>
       </div>
@@ -475,7 +373,7 @@ export function DataTable({
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-24 text-center">
-                      No results.
+                      Nici-un rezultat găsit.
                     </TableCell>
                   </TableRow>
                 )}
@@ -485,13 +383,13 @@ export function DataTable({
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} din{" "}
+            {table.getFilteredRowModel().rows.length} rânduri selectate.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
             <div className="hidden items-center gap-2 lg:flex">
               <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
+                Randuri per pagină
               </Label>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
@@ -511,7 +409,7 @@ export function DataTable({
               </Select>
             </div>
             <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
+              Pagina {table.getState().pagination.pageIndex + 1} din{" "}
               {table.getPageCount()}
             </div>
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
@@ -520,7 +418,7 @@ export function DataTable({
                 className="hidden h-8 w-8 p-0 lg:flex"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}>
-                <span className="sr-only">Go to first page</span>
+                <span className="sr-only">Mergi la prima pagină</span>
                 <IconChevronsLeft />
               </Button>
               <Button
@@ -529,7 +427,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}>
-                <span className="sr-only">Go to previous page</span>
+                <span className="sr-only">Pagina anterioară</span>
                 <IconChevronLeft />
               </Button>
               <Button
@@ -538,7 +436,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}>
-                <span className="sr-only">Go to next page</span>
+                <span className="sr-only">Pagina următoare</span>
                 <IconChevronRight />
               </Button>
               <Button
@@ -547,7 +445,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}>
-                <span className="sr-only">Go to last page</span>
+                <span className="sr-only">Mergi la ultima pagină</span>
                 <IconChevronsRight />
               </Button>
             </div>
