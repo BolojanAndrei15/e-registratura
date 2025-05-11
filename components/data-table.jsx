@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react";
+import AddRegistrationModal from "./add-registration-modal";
 import {
   DndContext,
   KeyboardSensor,
@@ -217,6 +219,7 @@ function DraggableRow({
 export function DataTable({
   data: initialData
 }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -331,12 +334,25 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="" >
+          <Button variant="" onClick={() => setModalOpen(true)}>
             <IconPlus />
             <span className="hidden lg:inline">Adaugă Înregistrare</span>
           </Button>
         </div>
       </div>
+      <AddRegistrationModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        onSuccess={() => {
+          setModalOpen(false);
+          // TODO: Refetch data if needed
+        }}
+        registers={[]}
+        departments={[]}
+        statuses={[]}
+        documentTypes={[]}
+        users={[]}
+      />
       <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
