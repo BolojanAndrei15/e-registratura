@@ -30,9 +30,9 @@ const data = {
  
   teams: [
     {
-      name: "Acme Inc",
+      name: "E-Registratura",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "Bazat pe Inteligență Artificială",
     },
    
   ],

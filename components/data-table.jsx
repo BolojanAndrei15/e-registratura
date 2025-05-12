@@ -1,8 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react";
-import AddRegistrationModal from "./add-registration-modal";
 import {
   DndContext,
   KeyboardSensor,
@@ -95,6 +93,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import AddRegistrationModal from "@/components/add-registration-modal";
 
 export const schema = z.object({
   id: z.number(),
@@ -106,67 +105,57 @@ export const schema = z.object({
   reviewer: z.string(),
 })
 
-// Create a separate component for the drag handle
-function DragHandle({
-  id
-}) {
-  const { attributes, listeners } = useSortable({
-    id,
-  })
-
-  return (
-    (<Button
-      {...attributes}
-      {...listeners}
-      variant="ghost"
-      size="icon"
-      className="text-muted-foreground size-7 hover:bg-transparent">
-      <IconGripVertical className="text-muted-foreground size-3" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>)
-  );
-}
-
 const columns = [
   {
-    accessorKey: "nr",
-    header: "Nr.",
-    cell: ({ row }) => row.index + 1,
+    accessorKey: "nrInregistrare",
+    header: "Nr",
+    cell: ({ row }) => row.original.nrInregistrare,
     enableHiding: false,
-  },
-  {
-    accessorKey: "data",
-    header: "Data",
-    cell: ({ row }) => row.original.data || "-",
   },
   {
     accessorKey: "tipDocument",
     header: "Tip document",
-    cell: ({ row }) => row.original.tipDocument || "-",
-  },
-  {
-    accessorKey: "expeditor",
-    header: "Expeditor",
-    cell: ({ row }) => row.original.expeditor || "-",
-  },
-  {
-    accessorKey: "destinatar",
-    header: "Destinatar",
-    cell: ({ row }) => row.original.destinatar || "-",
+    cell: ({ row }) => row.original.tipDocument,
   },
   {
     accessorKey: "rezumat",
     header: "Rezumat",
-    cell: ({ row }) => row.original.rezumat || "-",
+    cell: ({ row }) => {
+      const rez = row.original.rezumat || "";
+      return rez.length > 60 ? rez.slice(0, 60) + "..." : rez;
+    },
+  },
+  {
+    accessorKey: "destinatar",
+    header: "Destinatar",
+    cell: ({ row }) => row.original.destinatar,
+  },
+  {
+    accessorKey: "dataDocument",
+    header: "Data document",
+    cell: ({ row }) => row.original.dataDocument,
+  },
+  {
+    accessorKey: "inregistratDe",
+    header: "Înregistrat de",
+    cell: ({ row }) => row.original.inregistratDe,
+  },
+  {
+    accessorKey: "dataInregistrare",
+    header: "Data înregistrare",
+    cell: ({ row }) => row.original.dataInregistrare,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => row.original.status || "-",
+    cell: ({ row }) => (
+      <Badge variant="outline" className="text-muted-foreground px-1.5">
+        {row.original.status}
+      </Badge>
+    ),
   },
   {
     id: "actions",
-    header: "Acțiuni",
     cell: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -175,69 +164,40 @@ const columns = [
             className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
             size="icon">
             <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Deschide meniul</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
+          <DropdownMenuItem>Editează</DropdownMenuItem>
+          <DropdownMenuItem>Fă o copie</DropdownMenuItem>
           <DropdownMenuItem>Favorite</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+          <DropdownMenuItem variant="destructive">Șterge</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     ),
   },
 ]
 
-function DraggableRow({
-  row
-}) {
-  const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
-  })
-
-  return (
-    (<TableRow
-      data-state={row.getIsSelected() && "selected"}
-      data-dragging={isDragging}
-      ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition: transition,
-      }}>
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>)
-  );
-}
-
 export function DataTable({
-  data: initialData
+  data: initialData,
+  nextRegistrationNo,
+  loadingNextNo,
+  users = [],
+  documentTypes = [],
+  statuses = [],
+  registerId,
+  departmentId
 }) {
-  const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = React.useState(() => initialData)
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [columnVisibility, setColumnVisibility] =
-    React.useState({})
+  const [columnVisibility, setColumnVisibility] = React.useState({})
   const [columnFilters, setColumnFilters] = React.useState([])
   const [sorting, setSorting] = React.useState([])
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 10,
   })
-  const sortableId = React.useId()
-  const sensors = useSensors(
-    useSensor(MouseSensor, {}),
-    useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
-  )
-
-  const dataIds = React.useMemo(() => data?.map(({ id }) => id) || [], [data])
+  const [openAddModal, setOpenAddModal] = React.useState(false)
 
   const table = useReactTable({
     data,
@@ -245,17 +205,10 @@ export function DataTable({
     state: {
       sorting,
       columnVisibility,
-      rowSelection,
       columnFilters,
       pagination,
     },
     getRowId: (row) => row.id.toString(),
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -264,19 +217,8 @@ export function DataTable({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
-  function handleDragEnd(event) {
-    const { active, over } = event
-    if (active && over && active.id !== over.id) {
-      setData((data) => {
-        const oldIndex = dataIds.indexOf(active.id)
-        const newIndex = dataIds.indexOf(over.id)
-        return arrayMove(data, oldIndex, newIndex);
-      })
-    }
-  }
-
   return (
-    (<Tabs defaultValue="outline" className="w-full flex-col justify-start gap-6">
+    <Tabs defaultValue="outline" className="w-full flex-col justify-start gap-6">
       <div className="flex items-center justify-between px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
           View
@@ -306,10 +248,10 @@ export function DataTable({
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" >
+              <Button variant="outline" size="sm">
                 <IconLayoutColumns />
-                <span className="hidden lg:inline">Costumizează coloanele</span>
-                <span className="lg:hidden">Coloane</span>
+                <span className="hidden lg:inline">Customize Columns</span>
+                <span className="lg:hidden">Columns</span>
                 <IconChevronDown />
               </Button>
             </DropdownMenuTrigger>
@@ -321,7 +263,7 @@ export function DataTable({
                 column.getCanHide())
                 .map((column) => {
                   return (
-                    (<DropdownMenuCheckboxItem
+                    <DropdownMenuCheckboxItem
                       key={column.id}
                       className="capitalize"
                       checked={column.getIsVisible()}
@@ -329,83 +271,77 @@ export function DataTable({
                         column.toggleVisibility(!!value)
                       }>
                       {column.id}
-                    </DropdownMenuCheckboxItem>)
+                    </DropdownMenuCheckboxItem>
                   );
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="" onClick={() => setModalOpen(true)}>
-            <IconPlus />
-            <span className="hidden lg:inline">Adaugă Înregistrare</span>
-          </Button>
+         
+              <Button variant="outline" size="sm" onClick={() => setOpenAddModal(true)}>
+                <IconPlus />
+                <span className="hidden lg:inline">Adaugă înregistrare</span>
+              </Button>
+              <AddRegistrationModal
+                open={openAddModal}
+                onOpenChange={setOpenAddModal}
+                nextRegistrationNo={nextRegistrationNo}
+                users={users}
+                documentTypes={documentTypes}
+                statuses={statuses}
+                registerId={registerId}
+                departmentId={departmentId}
+              />
         </div>
       </div>
-      <AddRegistrationModal
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-        onSuccess={() => {
-          setModalOpen(false);
-          // TODO: Refetch data if needed
-        }}
-        registers={[]}
-        departments={[]}
-        statuses={[]}
-        documentTypes={[]}
-        users={[]}
-      />
       <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
         <div className="overflow-hidden rounded-lg border">
-          <DndContext
-            collisionDetection={closestCenter}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={handleDragEnd}
-            sensors={sensors}
-            id={sortableId}>
-            <Table>
-              <TableHeader className="bg-muted sticky top-0 z-10">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        (<TableHead key={header.id} colSpan={header.colSpan}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(header.column.columnDef.header, header.getContext())}
-                        </TableHead>)
-                      );
-                    })}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody className="**:data-[slot=table-cell]:first:w-8">
-                {table.getRowModel().rows?.length ? (
-                  <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
-                    {table.getRowModel().rows.map((row) => (
-                      <DraggableRow key={row.id} row={row} />
+          <Table>
+            <TableHeader className="bg-muted sticky top-0 z-10">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id} colSpan={header.colSpan}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody className="**:data-[slot=table-cell]:first:w-8">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
                     ))}
-                  </SortableContext>
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={columns.length} className="h-24 text-center">
-                      Nici-un rezultat găsit.
-                    </TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </DndContext>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} din{" "}
-            {table.getFilteredRowModel().rows.length} rânduri selectate.
+            {table.getFilteredRowModel().rows.length} row(s) available.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
             <div className="hidden items-center gap-2 lg:flex">
               <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Randuri per pagină
+                Rows per page
               </Label>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
@@ -425,7 +361,7 @@ export function DataTable({
               </Select>
             </div>
             <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Pagina {table.getState().pagination.pageIndex + 1} din{" "}
+              Page {table.getState().pagination.pageIndex + 1} of{" "}
               {table.getPageCount()}
             </div>
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
@@ -434,7 +370,7 @@ export function DataTable({
                 className="hidden h-8 w-8 p-0 lg:flex"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}>
-                <span className="sr-only">Mergi la prima pagină</span>
+                <span className="sr-only">Go to first page</span>
                 <IconChevronsLeft />
               </Button>
               <Button
@@ -443,7 +379,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}>
-                <span className="sr-only">Pagina anterioară</span>
+                <span className="sr-only">Go to previous page</span>
                 <IconChevronLeft />
               </Button>
               <Button
@@ -452,7 +388,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}>
-                <span className="sr-only">Pagina următoare</span>
+                <span className="sr-only">Go to next page</span>
                 <IconChevronRight />
               </Button>
               <Button
@@ -461,7 +397,7 @@ export function DataTable({
                 size="icon"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}>
-                <span className="sr-only">Mergi la ultima pagină</span>
+                <span className="sr-only">Go to last page</span>
                 <IconChevronsRight />
               </Button>
             </div>
@@ -477,7 +413,7 @@ export function DataTable({
       <TabsContent value="focus-documents" className="flex flex-col px-4 lg:px-6">
         <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
       </TabsContent>
-    </Tabs>)
+    </Tabs>
   );
 }
 
@@ -508,7 +444,7 @@ function TableCellViewer({
   const isMobile = useIsMobile()
 
   return (
-    (<Drawer direction={isMobile ? "bottom" : "right"}>
+    <Drawer direction={isMobile ? "bottom" : "right"}>
       <DrawerTrigger asChild>
         <Button variant="link" className="text-foreground w-fit px-0 text-left">
           {item.header}
@@ -652,6 +588,6 @@ function TableCellViewer({
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
-    </Drawer>)
+    </Drawer>
   );
 }

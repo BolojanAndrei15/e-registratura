@@ -43,6 +43,34 @@
       "when": 1746798859778,
       "tag": "0005_serious_strong_guy",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1747032085035,
+      "tag": "0006_aberrant_changeling",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1747034880996,
+      "tag": "0007_dark_ricochet",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1747035121182,
+      "tag": "0008_rapid_sauron",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1747068187183,
+      "tag": "0009_uneven_ultron",
+      "breakpoints": true
     }
   ]
 }

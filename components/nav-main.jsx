@@ -30,15 +30,14 @@ export function NavMain({
             className="group/collapsible">
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                 
+                <SidebarMenuButton tooltip={item.title} asChild>
+                  <a href={item.url} className="flex items-center w-full">
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </a>
                 </SidebarMenuButton>
               </CollapsibleTrigger>
-              <CollapsibleContent>
-               
-              </CollapsibleContent>
+             
             </SidebarMenuItem>
           </Collapsible>
         ))}

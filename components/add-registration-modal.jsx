@@ -12,11 +12,14 @@ import axios from "axios";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
+import { useQueryClient } from '@tanstack/react-query';
+import { useSession } from "next-auth/react";
 
-export default function AddRegistrationModal({ open, onOpenChange, onSuccess, registerId, registrantId, departmentId, statuses = [], documentTypes = [], users = [] }) {
+export default function AddRegistrationModal({ open, onOpenChange, onSuccess, registerId, registrantId, departmentId, statuses = [], documentTypes = [], users = [], nextRegistrationNo }) {
+  const { data: session } = useSession();
   const today = new Date();
   const [form, setForm] = useState({
-    registrationNo: "",
+    registrationNo: nextRegistrationNo || "",
     sentDate: today,
     documentNo: "",
     documentDate: today,
@@ -34,6 +37,7 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
   const [typing, setTyping] = useState({ documentNo: false, source: false, summary: false });
   const [processingAI, setProcessingAI] = useState(false);
   const typingTimeout = useRef();
+  const queryClient = useQueryClient();
 
   const allowedTypes = [
     "application/pdf",
@@ -41,6 +45,12 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   ];
+
+  useEffect(() => {
+    if (open && nextRegistrationNo) {
+      setForm(f => ({ ...f, registrationNo: nextRegistrationNo }));
+    }
+  }, [open, nextRegistrationNo]);
 
   useEffect(() => {
     if (!open) {
@@ -157,9 +167,26 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
     e.preventDefault();
     setError("");
     setLoading(true);
+    setFieldErrors({});
     try {
-      // aici trimiți datele finale către backend-ul tău, nu către AI
-      // ...existing code for payload and axios.post("/api/registration", payload)...
+      // Compose payload for registration
+      const payload = {
+        registerId,
+        departmentId, // from props, not form
+        documentNo: form.documentNo,
+        registrantId: session?.user?.id, // use logged-in user id from session
+        handlerId: form.handlerId || null,
+        documentDate: form.documentDate ? new Date(form.documentDate) : null,
+        sentDate: form.sentDate ? new Date(form.sentDate) : null,
+        source: form.source,
+        statusId: statuses[0]?.id, // default to first status if not selectable
+        documentTypeId: documentTypes[0]?.id, // default to first doc type if not selectable
+        summary: form.summary,
+      };
+      // If you have status/documentType selection, use those values from form
+      // Otherwise, use the first available as default
+      const res = await axios.post("/api/registrations", payload);
+      queryClient.invalidateQueries({ queryKey: ['registrations'] });
       onSuccess?.();
       onOpenChange(false);
       setForm({
@@ -172,6 +199,9 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
         summary: ""
       });
     } catch (err) {
+      if (err?.response?.data?.fieldErrors) {
+        setFieldErrors(err.response.data.fieldErrors);
+      }
       setError(err?.response?.data?.error || "Eroare la salvare.");
     } finally {
       setLoading(false);
@@ -187,7 +217,7 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 pb-2">
           <div>
             <Label>Număr înregistrare*</Label>
-            <Input name="registrationNo" type="number" value={form.registrationNo} readOnly className={fieldErrors.registrationNo ? "border-red-500 focus-visible:ring-red-500" : ""} />
+            <Input value={form.registrationNo} readOnly className={fieldErrors.registrationNo ? "border-red-500 focus-visible:ring-red-500" : ""} />
             {fieldErrors.registrationNo && <div className="text-destructive text-xs mt-1">{fieldErrors.registrationNo}</div>}
           </div>
           <div>
@@ -242,9 +272,9 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
             <Input name="source" value={form.source} onChange={handleChange} disabled={typing.source} />
           </div>
           <div>
-            <Label>Destinatar</Label>
-            <Select value={form.handlerId} onValueChange={v => handleSelect("handlerId", v)}>
-              <SelectTrigger>
+            <Label className="w-full">Destinatar</Label>
+            <Select  value={form.handlerId} onValueChange={v => handleSelect("handlerId", v)}>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Alege utilizatorul" />
               </SelectTrigger>
               <SelectContent>

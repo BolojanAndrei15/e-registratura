@@ -1,0 +1,1 @@
+ALTER TABLE "SeriesConfig" ADD COLUMN "interval_size" integer DEFAULT 10000 NOT NULL;
