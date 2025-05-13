@@ -183,9 +183,23 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
         documentTypeId: documentTypes[0]?.id, // default to first doc type if not selectable
         summary: form.summary,
       };
-      // If you have status/documentType selection, use those values from form
-      // Otherwise, use the first available as default
-      const res = await axios.post("/api/registrations", payload);
+      let res;
+      if (file) {
+        const formData = new FormData();
+        formData.append('json', JSON.stringify(payload));
+        formData.append('file', file, file.name);
+        // Add n8n meta fields directly to formData for n8n webhook
+        formData.append('registrationId', ''); // will be filled in API after registration
+        formData.append('type', payload.documentTypeId);
+        formData.append('summary', payload.summary);
+        formData.append('statusId', payload.statusId);
+        formData.append('documentTypeId', payload.documentTypeId);
+        res = await axios.post("/api/registrations", formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      } else {
+        res = await axios.post("/api/registrations", payload);
+      }
       queryClient.invalidateQueries({ queryKey: ['registrations'] });
       onSuccess?.();
       onOpenChange(false);
@@ -198,6 +212,7 @@ export default function AddRegistrationModal({ open, onOpenChange, onSuccess, re
         handlerId: "",
         summary: ""
       });
+      setFile(null);
     } catch (err) {
       if (err?.response?.data?.fieldErrors) {
         setFieldErrors(err.response.data.fieldErrors);

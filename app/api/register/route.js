@@ -1,5 +1,5 @@
 import { db } from "@/lib/drizzle";
-import { users } from "@/lib/schema";
+import { user } from "@/lib/schema";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 
@@ -10,14 +10,14 @@ export async function POST(req) {
       return Response.json({ error: "Toate câmpurile sunt obligatorii" }, { status: 400 });
     }
     // Verifică dacă utilizatorul există deja
-    const existing = await db.select().from(users).where(eq(users.email, email));
+    const existing = await db.select().from(user).where(eq(user.email, email));
     if (existing.length > 0) {
       return Response.json({ error: "Email deja folosit" }, { status: 400 });
     }
     // Hash parola
     const passwordHash = await bcrypt.hash(password, 10);
     // Creează utilizatorul
-    await db.insert(users).values({
+    await db.insert(user).values({
       name,
       email,
       passwordHash,

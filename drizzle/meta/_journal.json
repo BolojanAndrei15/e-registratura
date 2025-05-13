@@ -71,6 +71,20 @@
       "when": 1747068187183,
       "tag": "0009_uneven_ultron",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1747133077405,
+      "tag": "0010_windy_pandemic",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1747133703927,
+      "tag": "0011_premium_famine",
+      "breakpoints": true
     }
   ]
 }

@@ -2,10 +2,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/drizzle";
-import { departments, users, registers, registrations } from "@/lib/schema";
+import { department, user, register, registration } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { departmentSchema } from "@/lib/utils";
 import axios from "axios";
+import { createDepartment } from "@/lib/dbOperations";
 
 export async function GET(req) {
   const session = await getServerSession(authOptions);
@@ -14,11 +15,11 @@ export async function GET(req) {
   }
   try {
     // Get all departments
-    const deps = await db.select().from(departments);
+    const deps = await db.select().from(department);
     // For each department, get users, registers, registrations
-    const allUsers = await db.select().from(users);
-    const allRegisters = await db.select().from(registers);
-    const allRegistrations = await db.select().from(registrations);
+    const allUsers = await db.select().from(user);
+    const allRegisters = await db.select().from(register);
+    const allRegistrations = await db.select().from(registration);
 
     const mapped = deps.map(dep => {
       const depUsers = allUsers.filter(u => u.departmentId === dep.id);
@@ -59,20 +60,32 @@ export async function POST(req) {
     if (!descriere || descriere.trim().length < 10) {
       return NextResponse.json({ error: "Descrierea trebuie să aibă cel puțin 10 caractere." }, { status: 400 });
     }
-    // Folosește direct descrierea primită, fără integrare n8n
     if (!descriere || !descriere.trim()) {
       return NextResponse.json({
         error: "Te rog introdu manual descrierea.",
         requireManualDescription: true
       }, { status: 400 });
     }
-    // Creează departamentul cu Drizzle
-    const [createdDepartment] = await db.insert(departments).values({
+    // Creează departamentul cu trigger audit log și nume user
+    const createdDepartment = await createDepartment({
       name: nume,
       description: descriere,
-    }).returning();
+      userId: session.user?.id || null,
+      userName: session.user?.name || null,
+      ipAddress: req.headers.get("x-forwarded-for") || null
+    });
     if (!createdDepartment) {
       return NextResponse.json({ error: "Eroare la crearea departamentului" }, { status: 500 });
+    }
+    // Trimite webhook la n8n pentru creare folder folosind axios
+    try {
+      await axios.post("http://localhost:5678/webhook-test/create-folders", {
+        name: createdDepartment.name,
+        operation: "create-department"
+      });
+    } catch (webhookError) {
+      // Log error, but don't block department creation
+      console.error("n8n webhook error:", webhookError);
     }
     return NextResponse.json({
       success: true,

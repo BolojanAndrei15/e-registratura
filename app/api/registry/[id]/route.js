@@ -1,5 +1,5 @@
 import { db } from '@/lib/drizzle.js';
-import { registers } from '@/lib/schema.js';
+import { register } from '@/lib/schema.js';
 import { eq } from 'drizzle-orm';
 
 export async function PUT(req, context) {
@@ -12,7 +12,7 @@ export async function PUT(req, context) {
     if (!name || !description || !year || !registerTypeId) {
       return Response.json({ error: 'Câmpuri obligatorii lipsă' }, { status: 400 });
     }
-    const updated = await db.update(registers)
+    const updated = await db.update(register)
       .set({
         name,
         description,
@@ -21,7 +21,7 @@ export async function PUT(req, context) {
         maxNumber: maxNumber ?? null,
         registerTypeId
       })
-      .where(eq(registers.id, id))
+      .where(eq(register.id, id))
       .returning();
     if (!updated.length) return Response.json({ error: 'Registrul nu a fost găsit' }, { status: 404 });
     return Response.json({ success: true, data: updated[0] });
@@ -35,7 +35,7 @@ export async function DELETE(req, context) {
   try {
     const { id } = await context.params;
     if (!id) return Response.json({ error: 'ID lipsă' }, { status: 400 });
-    const deleted = await db.delete(registers).where(eq(registers.id, id)).returning();
+    const deleted = await db.delete(register).where(eq(register.id, id)).returning();
     if (!deleted.length) return Response.json({ error: 'Registrul nu a fost găsit' }, { status: 404 });
     return Response.json({ success: true });
   } catch (error) {

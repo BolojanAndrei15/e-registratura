@@ -1,20 +1,24 @@
 import { db } from "@/lib/drizzle";
-import { departments } from "@/lib/schema";
+import { department } from "@/lib/schema";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { updateDepartment } from "@/lib/dbOperations";
 
 // Returnează un singur departament după id
 export async function GET(req, context) {
-  const { id } = context.params;
+  const params = await context.params;
+  const { id } = params;
   try {
-    const department = await db
+    const departmentData = await db
       .select()
-      .from(departments)
-      .where(eq(departments.id, id));
-    if (!department || department.length === 0) {
+      .from(department)
+      .where(eq(department.id, id));
+    if (!departmentData || departmentData.length === 0) {
       return NextResponse.json({ error: "Departament inexistent" }, { status: 404 });
     }
-    return NextResponse.json({ success: true, department: department[0] });
+    return NextResponse.json({ success: true, department: departmentData[0] });
   } catch (error) {
     return NextResponse.json({ error: "Eroare server" }, { status: 500 });
   }
@@ -22,14 +26,22 @@ export async function GET(req, context) {
 
 // Actualizează un departament după id
 export async function PUT(req, context) {
-  const { id } = context.params;
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const params = await context.params;
+  const { id } = params;
   try {
     const { name, description } = await req.json();
-    const updated = await db
-      .update(departments)
-      .set({ name, description })
-      .where(eq(departments.id, id))
-      .returning();
+    const updated = await updateDepartment({
+      id,
+      name,
+      description,
+      userId: session.user?.id || null,
+      userName: session.user?.name || null,
+      ipAddress: req.headers.get("x-forwarded-for") || null
+    });
     if (!updated || updated.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut actualiza." }, { status: 404 });
     }
@@ -41,11 +53,12 @@ export async function PUT(req, context) {
 
 // Șterge un departament după id
 export async function DELETE(req, context) {
-  const { id } = context.params;
+  const params = await context.params;
+  const { id } = params;
   try {
     const deleted = await db
-      .delete(departments)
-      .where(eq(departments.id, id))
+      .delete(department)
+      .where(eq(department.id, id))
       .returning();
     if (!deleted || deleted.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut șterge." }, { status: 404 });

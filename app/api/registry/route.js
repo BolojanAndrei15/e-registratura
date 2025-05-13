@@ -1,5 +1,5 @@
 import { db } from '@/lib/drizzle.js';
-import { registers, registrations, registerTypes, departments } from '@/lib/schema.js';
+import { register, registration, registerType, department } from '@/lib/schema.js';
 import { count, eq, sql } from 'drizzle-orm';
 
 export async function GET(req) {
@@ -11,20 +11,20 @@ export async function GET(req) {
     // Construiește query cu condiția de departmentId dacă există
     const query = db
       .select({
-        register: registers,
-        registerTypeName: registerTypes.name,
+        register: register,
+        registerTypeName: registerType.name,
         registrationsCount: sql`COALESCE((
           SELECT COUNT(*)::int 
-          FROM ${registrations} 
-          WHERE ${registrations.registerId} = ${registers.id}
+          FROM ${registration} 
+          WHERE ${registration.registerId} = ${register.id}
         ), 0)`.as('registrationsCount')
       })
-      .from(registers)
-      .leftJoin(registerTypes, eq(registers.registerTypeId, registerTypes.id));
+      .from(register)
+      .leftJoin(registerType, eq(register.registerTypeId, registerType.id));
 
     // Aplică filtrarea după departmentId dacă este furnizat
     if (departmentId) {
-      query.where(eq(registers.departmentId, departmentId));
+      query.where(eq(register.departmentId, departmentId));
     }
 
     // Execută query-ul
@@ -76,8 +76,8 @@ export async function POST(req) {
     // Verificare dacă departmentId și registerTypeId există
     const [departmentExists] = await db
       .select({ count: count() })
-      .from(departments)
-      .where(eq(departments.id, departmentId));
+      .from(department)
+      .where(eq(department.id, departmentId));
 
     if (departmentExists.count === 0) {
       return Response.json({ error: 'Departamentul specificat nu există' }, { status: 400 });
@@ -85,15 +85,15 @@ export async function POST(req) {
 
     const [registerTypeExists] = await db
       .select({ count: count() })
-      .from(registerTypes)
-      .where(eq(registerTypes.id, registerTypeId));
+      .from(registerType)
+      .where(eq(registerType.id, registerTypeId));
 
     if (registerTypeExists.count === 0) {
       return Response.json({ error: 'Tipul de registru specificat nu există' }, { status: 400 });
     }
 
     // Crearea registrului
-    const [newRegister] = await db.insert(registers).values({
+    const [newRegister] = await db.insert(register).values({
       name,
       description: description || null,
       year,

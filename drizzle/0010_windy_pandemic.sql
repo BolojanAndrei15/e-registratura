@@ -1,0 +1,1 @@
+ALTER TABLE "Document" ALTER COLUMN "type" SET DATA TYPE varchar(100);
