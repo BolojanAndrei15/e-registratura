@@ -67,28 +67,27 @@ export async function POST(req) {
       updatedAt: new Date().toISOString(),
     }).returning();
 
-    // If file was uploaded, send to webhook
-    if (fileBuffer && fileName) {
-      // Compose metadata for n8n
-      const n8nMeta = {
-        registrationId: created.id,
-        type: documentTypeId,
-        summary,
-        statusId,
-        documentTypeId
-      };
-      // Send all required fields in the body as multipart/form-data
+    // If file was uploaded, do not send to document-upload webhook anymore
+
+    // Send registration info and document (if present) to n8n registration webhook using multipart/form-data
+    try {
+      const FormData = require('form-data');
+      const axios = require('axios');
       const n8nForm = new FormData();
-      n8nForm.append('file', new Blob([fileBuffer], { type: fileType || 'application/octet-stream' }), fileName);
-      n8nForm.append('registrationId', created.id?.toString() || '');
-      n8nForm.append('type', documentTypeId);
-      n8nForm.append('summary', summary);
-      n8nForm.append('statusId', statusId);
-      n8nForm.append('documentTypeId', documentTypeId);
-      await fetch('http://localhost:5678/webhook-test/document-upload', {
-        method: 'POST',
-        body: n8nForm,
+      n8nForm.append('documentName', fileName || '');
+      n8nForm.append('registrationNo', created.documentNo?.toString() || '');
+      n8nForm.append('action', 'create');
+      n8nForm.append('registryId', created.registerId?.toString() || '');
+      if (fileBuffer && fileName) {
+        n8nForm.append('file', fileBuffer, { filename: fileName, contentType: fileType || 'application/octet-stream' });
+      }
+      await axios.post('http://localhost:5678/webhook-test/registration', n8nForm, {
+        headers: n8nForm.getHeaders(),
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
       });
+    } catch (err) {
+      console.error('n8n registration webhook error:', err);
     }
 
     return NextResponse.json(created, { status: 201 });

@@ -19,6 +19,7 @@ export default function AddRegistryModal({ open, onOpenChange, departmentId, reg
     maxNumber: "",
     registerTypeId: ""
   });
+  const [previousName, setPreviousName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState({});
@@ -27,6 +28,20 @@ export default function AddRegistryModal({ open, onOpenChange, departmentId, reg
   const [aiError, setAiError] = useState("");
   const [typingDesc, setTypingDesc] = useState(false);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (open) {
+      setPreviousName("");
+      setForm({
+        name: "",
+        description: "",
+        year: new Date().getFullYear(),
+        minNumber: "",
+        maxNumber: "",
+        registerTypeId: ""
+      });
+    }
+  }, [open]);
 
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -52,6 +67,9 @@ export default function AddRegistryModal({ open, onOpenChange, departmentId, reg
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "name" && !previousName) {
+      setPreviousName(form.name);
+    }
     setForm((f) => ({ ...f, [name]: value }));
     setTouched((t) => ({ ...t, [name]: true }));
     setFieldErrors((fe) => ({ ...fe, [name]: undefined }));
@@ -156,7 +174,8 @@ export default function AddRegistryModal({ open, onOpenChange, departmentId, reg
       year: yearNum,
       minNumber: form.minNumber !== "" ? Number(form.minNumber) : null,
       maxNumber: form.maxNumber !== "" ? Number(form.maxNumber) : null,
-      departmentId: departmentId
+      departmentId: departmentId,
+      newName: form.name // trimite doar newName la creare
     };
     window?.console?.log && console.log("[DEBUG] Payload trimis la backend:", payload);
     mutation.mutate(payload);

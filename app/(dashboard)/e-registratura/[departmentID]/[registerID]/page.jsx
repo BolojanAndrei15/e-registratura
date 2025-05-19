@@ -1,7 +1,8 @@
 import SectionInregistrari from "@/components/section-inregistrari";
 
-export default function Page({ params }) {  
+export default async function Page({ params }) {
+    const { departmentID, registerID } = await params;
     return (
-        <SectionInregistrari departmentId={params.departmentID} registerId={params.registerID} />
+        <SectionInregistrari departmentId={departmentID} registerId={registerID} />
     );
 }

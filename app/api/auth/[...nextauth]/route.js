@@ -2,8 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/lib/drizzle";
 import bcrypt from "bcrypt";
-import { user } from "@/lib/schema";
 import { eq } from "drizzle-orm";
+import { user } from "@/lib/schema";
 
 export const authOptions = {
   providers: [
@@ -14,17 +14,17 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const result = await db.select().from(users).where(eq(users.email, credentials.email));
-        const user = result[0];
-        if (!user || user.isDeleted) return null;
-        const isValid = await bcrypt.compare(credentials.password, user.passwordHash);
+        const result = await db.select().from(user).where(eq(user.email, credentials.email));
+        const userObj = result[0];
+        if (!userObj || userObj.isDeleted) return null;
+        const isValid = await bcrypt.compare(credentials.password, userObj.passwordHash);
         if (!isValid) return null;
         return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
+          id: userObj.id,
+          name: userObj.name,
+          email: userObj.email,
           role: null,
-          departmentId: user.departmentId,
+          departmentId: userObj.departmentId,
         };
       },
     }),
@@ -38,7 +38,6 @@ export const authOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      // La login, user conține datele returnate din authorize()
       if (user) {
         token.id = user.id;
         token.role = user.role;

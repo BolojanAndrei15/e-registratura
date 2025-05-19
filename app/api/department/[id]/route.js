@@ -5,6 +5,9 @@ import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { updateDepartment } from "@/lib/dbOperations";
+import axios from "axios";
+
+const N8N_URL = process.env.N8N_URL?.replace(/\/$/, "");
 
 // Returnează un singur departament după id
 export async function GET(req, context) {
@@ -34,6 +37,9 @@ export async function PUT(req, context) {
   const { id } = params;
   try {
     const { name, description } = await req.json();
+    // Preia vechiul nume
+    const oldDept = await db.select().from(department).where(eq(department.id, id));
+    const oldName = oldDept[0]?.name || null;
     const updated = await updateDepartment({
       id,
       name,
@@ -45,6 +51,14 @@ export async function PUT(req, context) {
     if (!updated || updated.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut actualiza." }, { status: 404 });
     }
+    // Webhook n8n: trimite vechiul și noul nume
+    try {
+      await axios.post(`${N8N_URL}/webhook/departments`, {
+        operation: "update-department",
+        oldName,
+        newName: name
+      });
+    } catch (e) { /* ignora erorile webhook */ }
     return NextResponse.json({ success: true, department: updated[0] });
   } catch (error) {
     return NextResponse.json({ error: "Eroare la actualizarea departamentului." }, { status: 500 });
@@ -56,6 +70,9 @@ export async function DELETE(req, context) {
   const params = await context.params;
   const { id } = params;
   try {
+    // Preia numele departamentului înainte de ștergere
+    const dept = await db.select().from(department).where(eq(department.id, id));
+    const deptName = dept[0]?.name || null;
     const deleted = await db
       .delete(department)
       .where(eq(department.id, id))
@@ -63,6 +80,13 @@ export async function DELETE(req, context) {
     if (!deleted || deleted.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut șterge." }, { status: 404 });
     }
+    // Webhook n8n: trimite numele departamentului șters
+    try {
+      await axios.post(`${N8N_URL}/webhook/departments`, {
+        operation: "delete-department",
+        name: deptName
+      });
+    } catch (e) { /* ignora erorile webhook */ }
     return NextResponse.json({ success: true, message: "Departament șters cu succes!" });
   } catch (error) {
     return NextResponse.json({ error: "Eroare la ștergerea departamentului." }, { status: 500 });

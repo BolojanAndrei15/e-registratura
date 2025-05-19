@@ -1,6 +1,7 @@
 import { db } from '@/lib/drizzle.js';
 import { register, registration, registerType, department } from '@/lib/schema.js';
 import { count, eq, sql } from 'drizzle-orm';
+import axios from 'axios';
 
 export async function GET(req) {
   try {
@@ -102,6 +103,17 @@ export async function POST(req) {
       departmentId,
       registerTypeId
     }).returning();
+
+    // Webhook n8n pentru creare registry
+    try {
+      await axios.post(`${process.env.N8N_URL}/webhook/registries`, {
+        name: newRegister.name,
+        departmentId: newRegister.departmentId,
+        action: "create"
+      });
+    } catch (webhookError) {
+      console.error("n8n webhook error (registry create):", webhookError);
+    }
 
     return Response.json({ 
       success: true, 

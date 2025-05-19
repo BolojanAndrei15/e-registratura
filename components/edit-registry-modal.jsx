@@ -17,6 +17,7 @@ export default function EditRegistryModal({ open, onOpenChange, registryId, onSu
     maxNumber: "",
     registerTypeId: ""
   });
+  const [previousName, setPreviousName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState({});
@@ -52,6 +53,7 @@ export default function EditRegistryModal({ open, onOpenChange, registryId, onSu
               maxNumber: reg.maxNumber ?? "",
               registerTypeId: reg.registerTypeId || ""
             });
+            setPreviousName(reg.name || "");
           }
         })
         .catch(() => setError("Eroare la încărcarea datelor registrului."))
@@ -66,6 +68,7 @@ export default function EditRegistryModal({ open, onOpenChange, registryId, onSu
         maxNumber: "",
         registerTypeId: ""
       });
+      setPreviousName("");
       setError("");
       setFieldErrors({});
       setTouched({});
@@ -173,7 +176,8 @@ export default function EditRegistryModal({ open, onOpenChange, registryId, onSu
       year: yearNum,
       minNumber: form.minNumber !== "" ? Number(form.minNumber) : null,
       maxNumber: form.maxNumber !== "" ? Number(form.maxNumber) : null,
-      id: registryId
+      id: registryId,
+      ...(form.name !== previousName ? { oldName: previousName, newName: form.name } : {})
     };
     try {
       await axios.put(`/api/registry/${registryId}`, payload);

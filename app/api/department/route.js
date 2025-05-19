@@ -79,9 +79,9 @@ export async function POST(req) {
     }
     // Trimite webhook la n8n pentru creare folder folosind axios
     try {
-      await axios.post("http://localhost:5678/webhook-test/create-folders", {
+      await axios.post(`${process.env.N8N_URL}/webhook/departments`, {
         name: createdDepartment.name,
-        operation: "create-department"
+        operation: "create-department",
       });
     } catch (webhookError) {
       // Log error, but don't block department creation
