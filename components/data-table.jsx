@@ -94,6 +94,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import AddRegistrationModal from "@/components/add-registration-modal";
+import PDFViewerModal from "@/components/pdf-viewer-modal";
 
 export const schema = z.object({
   id: z.number(),
@@ -186,8 +187,7 @@ export function DataTable({
   users = [],
   documentTypes = [],
   statuses = [],
-  registerId,
-  departmentId
+  registerId,  departmentId
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [columnVisibility, setColumnVisibility] = React.useState({})
@@ -198,6 +198,19 @@ export function DataTable({
     pageSize: 10,
   })
   const [openAddModal, setOpenAddModal] = React.useState(false)
+  const [selectedRegistration, setSelectedRegistration] = React.useState(null)
+  const [openPDFModal, setOpenPDFModal] = React.useState(false)
+
+  // Sync local data state with prop changes when parent data updates
+  React.useEffect(() => {
+    setData(initialData)
+  }, [initialData])
+
+  // Function to handle row click and open PDF modal
+  const handleRowClick = (registration) => {
+    setSelectedRegistration(registration)
+    setOpenPDFModal(true)
+  }
 
   const table = useReactTable({
     data,
@@ -280,8 +293,7 @@ export function DataTable({
               <Button variant="outline" size="sm" onClick={() => setOpenAddModal(true)}>
                 <IconPlus />
                 <span className="hidden lg:inline">Adaugă înregistrare</span>
-              </Button>
-              <AddRegistrationModal
+              </Button>              <AddRegistrationModal
                 open={openAddModal}
                 onOpenChange={setOpenAddModal}
                 nextRegistrationNo={nextRegistrationNo}
@@ -290,10 +302,16 @@ export function DataTable({
                 statuses={statuses}
                 registerId={registerId}
                 departmentId={departmentId}
+              />              <PDFViewerModal
+                open={openPDFModal}
+                onOpenChange={setOpenPDFModal}
+                registration={selectedRegistration}
+                statuses={statuses}
+                documentTypes={documentTypes}
+                users={users}
               />
         </div>
-      </div>
-      <TabsContent
+      </div>      <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
         <div className="overflow-hidden rounded-lg border">
@@ -316,7 +334,11 @@ export function DataTable({
             <TableBody className="**:data-[slot=table-cell]:first:w-8">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow 
+                    key={row.id} 
+                    className="cursor-pointer hover:bg-muted/70"
+                    onClick={() => handleRowClick(row.original)}
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

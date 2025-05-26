@@ -73,19 +73,21 @@ export async function POST(req) {
       userId: session.user?.id || null,
       userName: session.user?.name || null,
       ipAddress: req.headers.get("x-forwarded-for") || null
-    });
-    if (!createdDepartment) {
+    });    if (!createdDepartment) {
       return NextResponse.json({ error: "Eroare la crearea departamentului" }, { status: 500 });
     }
+
     // Trimite webhook la n8n pentru creare folder folosind axios
     try {
       await axios.post(`${process.env.N8N_URL}/webhook/departments`, {
         name: createdDepartment.name,
+        departmentId: createdDepartment.id,
+        departmentStorageId: createdDepartment.departmentStorageId,
         operation: "create-department",
       });
     } catch (webhookError) {
       // Log error, but don't block department creation
-      console.error("n8n webhook error:", webhookError);
+      console.error("n8n webhook error:", webhookError?.message || webhookError);
     }
     return NextResponse.json({
       success: true,

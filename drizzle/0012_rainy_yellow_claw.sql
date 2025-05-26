@@ -1,0 +1,1 @@
+ALTER TABLE "Register" ADD COLUMN "fileStorageId" varchar(255);

@@ -85,6 +85,27 @@
       "when": 1747133703927,
       "tag": "0011_premium_famine",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1748205242265,
+      "tag": "0012_rainy_yellow_claw",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1748220052324,
+      "tag": "0013_parallel_ironclad",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1748288419610,
+      "tag": "0014_cool_sugar_man",
+      "breakpoints": true
     }
   ]
 }

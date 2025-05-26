@@ -106,13 +106,15 @@ export async function POST(req) {
 
     // Webhook n8n pentru creare registry
     try {
-      await axios.post(`${process.env.N8N_URL}/webhook/registries`, {
+      await axios.post(`${process.env.N8N_URL}/webhook-test/registries`, {
+        action: "create",
+        registerId: newRegister.id,
+        registerStorageId: newRegister.registerStorageId,
         name: newRegister.name,
-        departmentId: newRegister.departmentId,
-        action: "create"
+        departmentId: newRegister.departmentId
       });
     } catch (webhookError) {
-      console.error("n8n webhook error (registry create):", webhookError);
+      console.error("n8n webhook error (registry create):", webhookError?.message || webhookError);
     }
 
     return Response.json({ 

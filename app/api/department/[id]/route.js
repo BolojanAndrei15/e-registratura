@@ -45,20 +45,25 @@ export async function PUT(req, context) {
       name,
       description,
       userId: session.user?.id || null,
-      userName: session.user?.name || null,
-      ipAddress: req.headers.get("x-forwarded-for") || null
+      userName: session.user?.name || null,      ipAddress: req.headers.get("x-forwarded-for") || null
     });
+    
     if (!updated || updated.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut actualiza." }, { status: 404 });
     }
+
     // Webhook n8n: trimite vechiul și noul nume
     try {
       await axios.post(`${N8N_URL}/webhook/departments`, {
         operation: "update-department",
+        departmentId: id,
+        departmentStorageId: updated[0].departmentStorageId,
         oldName,
         newName: name
       });
-    } catch (e) { /* ignora erorile webhook */ }
+    } catch (e) {
+      console.error("n8n webhook error (department update):", e?.message || e);
+    }
     return NextResponse.json({ success: true, department: updated[0] });
   } catch (error) {
     return NextResponse.json({ error: "Eroare la actualizarea departamentului." }, { status: 500 });
@@ -77,16 +82,22 @@ export async function DELETE(req, context) {
       .delete(department)
       .where(eq(department.id, id))
       .returning();
+    
     if (!deleted || deleted.length === 0) {
       return NextResponse.json({ error: "Departamentul nu a fost găsit sau nu s-a putut șterge." }, { status: 404 });
     }
+
     // Webhook n8n: trimite numele departamentului șters
     try {
       await axios.post(`${N8N_URL}/webhook/departments`, {
         operation: "delete-department",
+        departmentId: id,
+        departmentStorageId: dept[0]?.departmentStorageId,
         name: deptName
       });
-    } catch (e) { /* ignora erorile webhook */ }
+    } catch (e) {
+      console.error("n8n webhook error (department delete):", e?.message || e);
+    }
     return NextResponse.json({ success: true, message: "Departament șters cu succes!" });
   } catch (error) {
     return NextResponse.json({ error: "Eroare la ștergerea departamentului." }, { status: 500 });
